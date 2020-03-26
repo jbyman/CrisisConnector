@@ -1,16 +1,36 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import styled from 'styled-components';
 
-function App() {
+import LandingPage from 'pages/LandingPage';
+import SignUpPage from 'pages/SignUpPage';
+
+function App({ className }) {
   return (
-    <Router>
-      <Switch>
-        <Route path="/">
-          <div>{'Hello, world!'}</div>
-        </Route>
-      </Switch>
-    </Router>
+    <div className={className}>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
+          <Route path="/sign-up">
+            <SignUpPage />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
   );
 }
 
-export default App;
+const StyledApp = styled(App)`
+  display: flex;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-color: #ccc;
+
+  font-family: sans-serif;
+`;
+
+export default StyledApp;
