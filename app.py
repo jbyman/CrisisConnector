@@ -3,23 +3,12 @@ Entrypoint for the webapp
 """
 
 from flask import Flask, render_template
-APP = Flask(__name__, static_folder="templates/static")
+APP = Flask(__name__)
 
 
-@APP.route('/api')
-def api():
-    """
-        a mock api endpoint
-    """
-
-    return "this is mock api call"
-
-
-@APP.route('/', defaults={'u_path': ''})
-@APP.route('/<path:u_path>')
-def hello_world(u_path):
-    print(u_path)
-
+@APP.route('/')
+@APP.route('/home')
+def hello_world():
     """
     Entrypoint to the main application
     """
