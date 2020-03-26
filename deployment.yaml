@@ -1,0 +1,25 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: covid-deployment
+  namespace: default
+  labels:
+    app: flask-app
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: flask-app
+    template:
+      metadata:
+        labels:
+          app: flask-app
+      spec:
+        containers:
+          - name: flask-webapp
+            image: example-node-app
+            resources: {}
+            imagePullPolicy: IfNotPresent
+        restartPolicy: Always
+        terminationGracePeriodSeconds: 30
+terminationGracePeriodSeconds: 30
