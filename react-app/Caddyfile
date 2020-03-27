@@ -1,0 +1,7 @@
+:80 {
+  root /srv
+
+  rewrite {
+    to {path} index.html
+  }
+}
