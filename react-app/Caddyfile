@@ -4,7 +4,7 @@
 
   rewrite {
     if {path} not_has /api
-    to {path} index.html
+    to {path} /
   }
 
   proxy /api {$API_URL} {
