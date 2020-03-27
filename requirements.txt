@@ -1,2 +1,5 @@
 flask
 Flask
+flask-sqlalchemy
+psycopg2-binary
+psycopg2
