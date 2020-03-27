@@ -1,7 +1,5 @@
-from time import time
+from random import randint
 
 
 def get_next_id():
-    ts = time()
-    formatted = int(str(ts).replace('.', ''))
-    return formatted / 1000000
+    return randint(1, 1000000000)
