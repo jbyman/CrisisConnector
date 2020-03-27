@@ -25,6 +25,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=help_directory
+      - POSTGRES_HOST_AUTH_METHOD=trust
     restart: always
     networks:
       - default
