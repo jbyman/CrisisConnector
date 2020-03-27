@@ -15,17 +15,15 @@ const Page = ({ className, children }) => {
 
 const StyledPage = styled(Page)`
   width: 100%;
-  max-width: 960px;
 
   margin: 0 auto;
-
-  background-color: #fff;
+  background: linear-gradient(#ff0000 0%, #fff 75%);
 
   height: 100%;
 `;
 
 const PageContents = styled.div`
-  padding: 1em;
+  padding: 2em;
 `;
 
 export default StyledPage;

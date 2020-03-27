@@ -32,9 +32,7 @@ const StyledApp = styled(App)`
   width: 100vw;
   height: 100vh;
 
-  background-color: #ccc;
-
-  font-family: sans-serif;
+  background: linear-gradient(#ff0000 0%, #fff 75%);
 `;
 
 export default StyledApp;
