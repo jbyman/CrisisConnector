@@ -17,7 +17,7 @@ def hello_world():
     """
 
     rows = DB.query("SELECT * FROM organizations")
-    app.logger.info('Fetching organizations...')
+    APP.logger.info('Fetching organizations...')
     return render_template('index.html', data=rows)
 
 
