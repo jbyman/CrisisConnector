@@ -1,4 +1,4 @@
-FROM abiosoft/caddy
+FROM abiosoft/caddy:no-stats
 
 ADD Caddyfile /etc/
 ADD build /srv
