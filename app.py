@@ -9,6 +9,11 @@ DB = Database(APP)
 APP.config['SQLALCHEMY_DATABASE_URI'] = DB.getDbURL()
 
 
+@APP.route('/mock-endpoint')
+def mock_endpoint():
+    return ("this is some mock api data")
+
+
 @APP.route('/')
 @APP.route('/home')
 def hello_world():
