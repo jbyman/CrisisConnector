@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 services:
   web:
@@ -9,6 +9,13 @@ services:
       - 5000:5000
     depends_on:
       - db
+      - ui
+  ui:
+    image: covid-hackathon-ui:latest
+    ports:
+      - 5001:80
+    environment:
+      - "API_URL=http://web:5000"
   db:
     image: postgres:latest
     ports:

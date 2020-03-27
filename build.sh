@@ -1,5 +1,7 @@
 docker-compose down
 
+# Build UI
+(cd react-app; ./build.sh)
 # Build All Docker Images
 docker-compose build
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -6,6 +6,10 @@ import LandingPage from 'pages/LandingPage';
 import SignUpPage from 'pages/SignUpPage';
 
 function App({ className }) {
+  useEffect(() => {
+    document.title = 'CrisisConnector';
+  }, []);
+
   return (
     <div className={className}>
       <Router>

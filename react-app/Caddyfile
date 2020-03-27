@@ -1,0 +1,14 @@
+:80 {
+  log stdout
+  root /srv
+
+  rewrite {
+    if {path} not_has /api
+    to {path} /
+  }
+
+  proxy /api {$API_URL} {
+    transparent
+    without /api
+  }
+}
