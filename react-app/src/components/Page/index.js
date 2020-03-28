@@ -11,7 +11,7 @@ const Page = ({ className, children }) => {
         margin: 0 auto;
 
         height: 100%;
-        padding-bottom: 26em;
+        padding-bottom: 26rem;
       `}
     >
       {/* <Header /> */}

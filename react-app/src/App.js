@@ -15,9 +15,6 @@ function App({ className }) {
 
         font-family: Raleway, sans-serif;
 
-        width: 100vw;
-        height: 100vh;
-
         background-color: #fff;
 
         padding: 2rem;

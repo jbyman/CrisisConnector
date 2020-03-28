@@ -1,60 +1,77 @@
-import styled, { css } from 'styled-components';
+import React from 'react';
+import { css } from 'styled-components/macro';
 
-const primary = `
-  background: #fff;
-  color: #707070;
-  border: 2px solid #b400ff;
-  
-  &:hover {
-    border: 2px solid #b400ff;
-  }
-  
-  &:active {
-    border: 2px solid #b400ff;
-  }
-
-`;
-
-const secondary = `
-  background: #fff;
-  color: #707070;
-
-  border: 2px solid #707070;
+const primary = css`
+  background-color: #63abce;
+  color: #fff;
 
   &:hover {
-    border: 2px solid #707070
+    background-color: #51a0c8;
   }
-  
+
   &:active {
-    border: 2px solid #707070;
+    background-color: #3d96c2;
   }
 `;
 
-const Button = styled.button`
-  outline: none;
-  border: none;
-  position: relative;
-  user-select: none;
+const secondary = css`
+  background: #fff;
   color: #707070;
 
-  height: 6rem;
-  font-size: 2rem;
-  padding: 0 40px;
-  cursor: pointer;
+  border: 2px solid #63abce;
 
-  box-shadow: 0px 1px 4px 3px rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #f2f2f2;
+    border: 2px solid #51a0c8;
+  }
 
-  ${(props) =>
-    props.primary &&
-    css`
-      ${primary};
-    `};
-
-  ${(props) =>
-    props.secondary &&
-    css`
-      ${secondary};
-    `};
+  &:active {
+    background-color: #e6e6e6;
+    border: 2px solid #3d96c2;
+  }
 `;
+
+const Button = ({
+  className,
+  children,
+  secondary: isSecondary,
+  primary: isPrimary,
+  ...props
+}) => {
+  return (
+    <button
+      className={className}
+      css={css`
+        outline: none;
+        border: none;
+        position: relative;
+        user-select: none;
+        color: #707070;
+
+        font-size: 2rem;
+        padding: 1rem 1.1rem;
+        cursor: pointer;
+
+        font-family: Raleway, sans-serif;
+
+        box-shadow: 0px 1px 4px 3px rgba(0, 0, 0, 0.1);
+
+        ${isPrimary ? primary : ''};
+        ${isSecondary ? secondary : ''};
+      `}
+      {...props}
+    >
+      <div
+        css={css`
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        `}
+      >
+        {children}
+      </div>
+    </button>
+  );
+};
 
 export default Button;
