@@ -6,22 +6,21 @@ import { Link } from 'react-router-dom';
 const Header = ({ className }) => {
   return (
     <div className={className}>
-      <HeaderLink to="/">{'Home'}</HeaderLink>
-      <HeaderLink to="/sign-up">{'Sign Up'}</HeaderLink>
+      <HeaderLink to="/">{'CrisisConnector'}</HeaderLink>
     </div>
   );
 };
 
 const StyledHeader = styled(Header)`
-  display: flex;
+  font-size: 3rem;
 
-  border-bottom: 1px solid lightgray;
+  display: flex;
 
   padding: 1em;
 `;
 
 const HeaderLink = styled(Link)`
-  color: #000;
+  color: #8b8b8b;
   text-decoration: none;
 
   :hover {
@@ -29,7 +28,7 @@ const HeaderLink = styled(Link)`
   }
 
   &:not(:first-child) {
-    margin-left: 0.5em;
+    margin-left: 3em;
   }
 `;
 

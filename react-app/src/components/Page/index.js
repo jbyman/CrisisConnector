@@ -6,8 +6,7 @@ import Header from 'components/Header';
 const Page = ({ className, children }) => {
   return (
     <div className={className}>
-      <Header />
-
+      {/* <Header /> */}
       <PageContents>{children}</PageContents>
     </div>
   );
@@ -15,17 +14,16 @@ const Page = ({ className, children }) => {
 
 const StyledPage = styled(Page)`
   width: 100%;
-  max-width: 960px;
 
   margin: 0 auto;
-
-  background-color: #fff;
+  background-color: #fff
 
   height: 100%;
 `;
 
 const PageContents = styled.div`
-  padding: 1em;
+  color: #8b8b8b;
+  padding: 2em;
 `;
 
 export default StyledPage;
