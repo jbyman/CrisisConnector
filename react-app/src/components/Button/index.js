@@ -17,10 +17,18 @@ const primary = `
 `;
 
 const secondary = `
-  color: #707070;
-
   background: #fff;
   color: #707070;
+
+  border: 2px solid #707070;
+
+  &:hover {
+    border: 2px solid #707070
+  }
+  
+  &:active {
+    border: 2px solid #707070;
+  }
 `;
 
 const Button = styled.button`
@@ -31,7 +39,6 @@ const Button = styled.button`
   color: #707070;
 
   height: 6rem;
-  width: 100%;
   font-size: 2rem;
   padding: 0 40px;
   cursor: pointer;

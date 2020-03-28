@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 import LandingPage from 'pages/LandingPage';
-import SignUpPage from 'pages/SignUpPage';
 
 function App({ className }) {
   useEffect(() => {
@@ -16,9 +15,6 @@ function App({ className }) {
         <Switch>
           <Route exact path="/">
             <LandingPage />
-          </Route>
-          <Route path="/sign-up">
-            <SignUpPage />
           </Route>
         </Switch>
       </Router>

@@ -6,7 +6,7 @@ import Header from 'components/Header';
 const Page = ({ className, children }) => {
   return (
     <div className={className}>
-      <Header />
+      {/* <Header /> */}
       <PageContents>{children}</PageContents>
     </div>
   );
