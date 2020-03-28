@@ -35,7 +35,7 @@ const Step = ({ children, stepNumber, currentStep, isLast }) => {
       setTransitionItems([]);
       setLineProps({ height: '0%' });
     }
-  }, [currentStep]);
+  }, [currentStep, setLineProps, children, stepNumber]);
 
   const fadeInTransition = useTransition(
     fadeInTransitionItems,

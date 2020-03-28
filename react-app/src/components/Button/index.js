@@ -1,4 +1,3 @@
-import React from 'react';
 import styled, { css } from 'styled-components';
 
 const primary = `
@@ -57,21 +56,5 @@ const Button = styled.button`
       ${secondary};
     `};
 `;
-
-const StyledButton = ({ className, children, ...props }) => {
-  return (
-    <Button className={className}>
-      <div
-        css={css`
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        `}
-      >
-        {children}
-      </div>
-    </Button>
-  );
-};
 
 export default Button;
