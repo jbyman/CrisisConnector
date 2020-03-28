@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import Page from 'components/Page';
 import Button from 'components/Button';
+import Stepper from 'components/Stepper';
 
 const LandingPage = ({ className }) => {
   useEffect(() => {
