@@ -17,14 +17,16 @@ const Hero = ({ className }) => {
       >
         <div>logo</div>
       </div>
-      <div
+      <h1
         css={css`
-          margin-top: 3rem;
           color: #ff0000;
+
+          margin: 3rem 0 0;
+          font-weight: normal;
         `}
       >
         {'CrisisConnector'}
-      </div>
+      </h1>
       <div
         css={css`
           margin-top: 1rem;

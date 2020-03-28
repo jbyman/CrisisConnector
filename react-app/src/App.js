@@ -21,7 +21,22 @@ function App({ className }) {
         background-color: #fff;
 
         padding: 2rem;
-        font-size: 3rem;
+        font-size: 1.5rem;
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        p {
+          padding: 0;
+          margin: 0;
+        }
+
+        h2 {
+          font-weight: normal;
+          font-size: 2rem;
+        }
       `}
     >
       <Helmet>
