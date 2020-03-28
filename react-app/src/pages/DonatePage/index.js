@@ -14,6 +14,35 @@ const DonatePage = ({ className }) => {
   const [step, setStep] = [4, () => {}]; //useState(1);
 
   const [zipCode, setZipCode] = useState('');
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  const addItem = (item) => {
+    const selectedItemCopy = [...selectedItems];
+    selectedItemCopy.push(item);
+    setSelectedItems(selectedItemCopy);
+    return selectedItemCopy;
+  };
+
+  const removeItem = (item) => {
+    let selectedItemsCopy = [...selectedItems];
+    if (selectedItemsCopy.includes(item)) {
+      let idx = selectedItemsCopy.indexOf(item);
+      selectedItemsCopy = [
+        ...selectedItems.slice(0, idx),
+        ...selectedItems.slice(idx + 1),
+      ];
+      setSelectedItems(selectedItemsCopy);
+      return selectedItemsCopy;
+    }
+  };
+
+  const handleSelect = (item) => {
+    if (selectedItems.includes(item)) {
+      removeItem(item);
+    } else {
+      addItem(item);
+    }
+  };
 
   return (
     <Page className={className}>
@@ -38,7 +67,19 @@ const DonatePage = ({ className }) => {
         `}
       >
         {[
-          <ItemSelect key="item-select" />,
+          <ItemSelect
+            key="item-select"
+            items={[
+              'Money',
+              'Masks',
+              'Hand Sanitizer',
+              'Face Shields',
+              'Disinfecting Wipes',
+              'Other',
+            ]}
+            handleSelect={handleSelect}
+            selectedItems={selectedItems}
+          />,
           <UnitSubform key="unit-subform" />,
           <ZipCodeSection
             key="zip-code-input"

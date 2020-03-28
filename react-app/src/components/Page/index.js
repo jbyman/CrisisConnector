@@ -19,7 +19,7 @@ const Page = ({ className, children }) => {
         css={css`
           padding: 2em;
 
-          max-width: 960px;
+          max-width: 1440px;
         `}
       >
         {children}

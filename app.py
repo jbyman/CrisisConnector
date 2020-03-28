@@ -2,7 +2,7 @@
 Entrypoint for the webapp
 """
 
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, abort
 from flask_sqlalchemy import SQLAlchemy
 import db
 import models
@@ -30,7 +30,7 @@ def get_organizations():
         orgs = models.Organization.query.all()
         return jsonify([e.serialize() for e in orgs])
     except Exception as e:
-        return (str(e))
+        abort(500, description=e)
 
 
 @APP.route('/login')
@@ -84,8 +84,11 @@ def add_organization():
 
         return {'added': True}
     except Exception as e:
-        return (str(e))
+        abort(500, description=e)
 
+@APP.errorhandler(500)
+def internal_server_error_handler(error):
+    return jsonify(error=str(error)), 500
 
 if __name__ == '__main__':
     APP.run(debug=True, host='0.0.0.0')
