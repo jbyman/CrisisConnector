@@ -27,7 +27,7 @@ function App({ className }) {
       <Helmet>
         <title>{'CrisisConnector'}</title>
         <style type="text/css">
-          {`@import url('https://fonts.googleapis.com/css?family=Raleway:400,700&display=swap');
+          {`@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap');
 
           html {
             box-sizing: border-box;

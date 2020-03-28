@@ -12,7 +12,7 @@ const Hero = ({ className }) => {
           height: 15rem;
           width: 15rem;
           border-radius: 50%;
-          border: 1px solid #707070;
+          border: 1px solid #a7a7a7;
         `}
       >
         <div>logo</div>
@@ -20,7 +20,9 @@ const Hero = ({ className }) => {
       <div
         css={css`
           margin-top: 3rem;
-          color: #ff0000;
+          font-weight: 300;
+          color: #ee442f;
+          font-size: 4rem;
         `}
       >
         {'CrisisConnector'}
@@ -28,8 +30,7 @@ const Hero = ({ className }) => {
       <div
         css={css`
           margin-top: 1rem;
-          font-size: 1.8rem;
-          color: #707070;
+          font-size: 1.5rem;
         `}
       >
         <div>{'Not sure where to donate or help?'}</div>

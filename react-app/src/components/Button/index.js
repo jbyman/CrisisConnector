@@ -1,32 +1,34 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 
 const primary = `
-  background: #fff;
-  color: #707070;
-  border: 2px solid #b400ff;
+  background: #63abce;
+  color: #fff;
+  border: 2px solid #63abce;
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.3);
   
   &:hover {
-    border: 2px solid #b400ff;
+    border: 2px solid #63abce;
   }
   
   &:active {
-    border: 2px solid #b400ff;
+    border: 2px solid #63abce;
   }
 
 `;
 
 const secondary = `
   background: #fff;
-  color: #707070;
-
-  border: 2px solid #707070;
+  color: #000;
+  border: 2px solid #63abce;
+  box-shadow: inset 0px 2px 4px 0px rgba(0,0,0,0.3),
+              0px 2px 4px 0px rgba(0,0,0,0.3);
 
   &:hover {
-    border: 2px solid #707070
+    border: 2px solid #63abce;
   }
   
   &:active {
-    border: 2px solid #707070;
+    border: 2px solid #63abce;
   }
 `;
 
@@ -35,14 +37,11 @@ const Button = styled.button`
   border: none;
   position: relative;
   user-select: none;
-  color: #707070;
 
   height: 6rem;
   font-size: 2rem;
   padding: 0 40px;
   cursor: pointer;
-
-  box-shadow: 0px 1px 4px 3px rgba(0, 0, 0, 0.1);
 
   ${(props) =>
     props.primary &&
