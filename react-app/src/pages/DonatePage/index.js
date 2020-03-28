@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { css } from 'styled-components/macro';
 
+import { useSelection } from 'hooks';
+
 import Page from 'components/Page';
 import Hero from 'components/Hero';
 import Stepper from 'components/Stepper';
@@ -12,35 +14,8 @@ import ZipCodeInput from './ZipCodeInput';
 
 const DonatePage = ({ className }) => {
   const [step, setStep] = useState(1);
-  const [selectedItems, setSelectedItems] = useState([]);
 
-  const addItem = (item) => {
-    const selectedItemCopy = [...selectedItems];
-    selectedItemCopy.push(item);
-    setSelectedItems(selectedItemCopy);
-    return selectedItemCopy;
-  };
-
-  const removeItem = (item) => {
-    let selectedItemsCopy = [...selectedItems];
-    if (selectedItemsCopy.includes(item)) {
-      let idx = selectedItemsCopy.indexOf(item);
-      selectedItemsCopy = [
-        ...selectedItems.slice(0, idx),
-        ...selectedItems.slice(idx + 1),
-      ];
-      setSelectedItems(selectedItemsCopy);
-      return selectedItemsCopy;
-    }
-  };
-
-  const handleSelect = (item) => {
-    if (selectedItems.includes(item)) {
-      removeItem(item);
-    } else {
-      addItem(item);
-    }
-  };
+  const [selectedItems, { handleSelect }] = useSelection();
 
   return (
     <Page className={className}>
