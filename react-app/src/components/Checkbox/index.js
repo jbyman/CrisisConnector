@@ -11,7 +11,7 @@ const Checkbox = ({ className, item, handleClick, selected }) => (
       box-sizing: border-box;
 
       font-size: 1.8rem;
-      width: 20rem;
+      width: 19rem;
       height: 5rem;
       padding: 0.5rem 1rem;
       cursor: pointer;
@@ -21,7 +21,7 @@ const Checkbox = ({ className, item, handleClick, selected }) => (
     `}
     onClick={() => handleClick(item)}
   >
-    <div>{item}</div>
+    {item}
   </div>
 );
 

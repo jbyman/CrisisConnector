@@ -14,24 +14,15 @@ import ZipCodeInput from './ZipCodeInput';
 
 const DonatePage = ({ className }) => {
   const [step, setStep] = useState(1);
-
   const [selectedItems, { handleSelect }] = useSelection();
+
+  const updateStep = () => {
+    return step < 4 ? setStep(step + 1) : null;
+  };
 
   return (
     <Page className={className}>
       <Hero />
-
-      {/* Just for testing */}
-      {/* TODO: Remove below */}
-      <div>
-        <button
-          disabled={step >= 4}
-          onClick={(e) => (step < 4 ? setStep(step + 1) : null)}
-        >
-          {'step++'}
-        </button>
-      </div>
-      {/* TODO: Remove above */}
 
       <Stepper
         step={step}
@@ -52,8 +43,15 @@ const DonatePage = ({ className }) => {
             ]}
             handleSelect={handleSelect}
             selectedItems={selectedItems}
+            updateStep={updateStep}
+            step={step}
           />,
-          <UnitSubform key="unit-subform" />,
+          <UnitSubform
+            key="unit-subform"
+            selectedItems={selectedItems}
+            updateStep={updateStep}
+            step={step}
+          />,
           <ZipCodeInput key="zip-code-input" />,
           <DonationResults key="donation-results" />,
         ]}
