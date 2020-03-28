@@ -53,6 +53,7 @@ const DonationResults = ({ className }) => {
 
         <div
           css={css`
+            display: flex;
             margin-top: 2em;
           `}
         >

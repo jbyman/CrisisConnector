@@ -20,6 +20,8 @@ function App({ className }) {
         padding: 2rem;
         font-size: 1.5rem;
 
+        overflow: hidden;
+
         h1,
         h2,
         h3,

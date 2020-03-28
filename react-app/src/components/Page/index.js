@@ -8,8 +8,6 @@ const Page = ({ className, children }) => {
       css={css`
         width: 100%;
 
-        margin: 0 auto;
-
         height: 100%;
         padding-bottom: 26rem;
       `}
@@ -19,7 +17,8 @@ const Page = ({ className, children }) => {
         css={css`
           padding: 2em;
 
-          max-width: 1440px;
+          max-width: 920px;
+          margin: 0 auto;
         `}
       >
         {children}

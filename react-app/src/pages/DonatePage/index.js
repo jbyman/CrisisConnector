@@ -11,7 +11,7 @@ import UnitSubform from './UnitSubform';
 import ZipCodeSection from './ZipCodeSection';
 
 const DonatePage = ({ className }) => {
-  const [step, setStep] = [4, () => {}]; //useState(1);
+  const [step, setStep] = useState(1); // [4, () => {}]; //
 
   const [zipCode, setZipCode] = useState('');
   const [selectedItems, setSelectedItems] = useState([]);

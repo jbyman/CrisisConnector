@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { css } from 'styled-components/macro';
 
 import Checkbox from 'components/Checkbox';
@@ -16,14 +16,27 @@ const ItemSelect = ({ className, items, selectedItems, handleSelect }) => {
       <div
         css={css`
           display: flex;
-          margin-top: 2rem;
-          & > :not(:last-child) {
-            margin-right: 3rem;
+          flex-wrap: wrap;
+
+          @media screen and (max-width: 620px) {
+            flex-direction: column;
+            align-items: center;
           }
         `}
       >
         {items.map((item) => (
           <Checkbox
+            css={css`
+              margin-top: 2rem;
+
+              :not(:last-child) {
+                margin-right: 3rem;
+
+                @media screen and (max-width: 620px) {
+                  margin-right: 0;
+                }
+              }
+            `}
             key={item}
             item={item}
             handleClick={handleSelect}

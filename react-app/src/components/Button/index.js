@@ -5,11 +5,15 @@ const primary = css`
   background-color: #63abce;
   color: #fff;
 
+  border: 2px solid #63abce;
+
   &:hover {
+    border: 2px solid #51a0c8;
     background-color: #51a0c8;
   }
 
   &:active {
+    border: 2px solid #3d96c2;
     background-color: #3d96c2;
   }
 `;
