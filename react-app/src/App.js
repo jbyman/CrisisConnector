@@ -15,13 +15,27 @@ function App({ className }) {
 
         font-family: Raleway, sans-serif;
 
-        width: 100vw;
-        height: 100vh;
-
         background-color: #fff;
 
         padding: 2rem;
-        font-size: 3rem;
+        font-size: 1.5rem;
+
+        overflow: hidden;
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        p {
+          padding: 0;
+          margin: 0;
+        }
+
+        h2 {
+          font-weight: normal;
+          font-size: 2rem;
+        }
       `}
     >
       <Helmet>

@@ -1,20 +1,88 @@
 import React from 'react';
 import { css } from 'styled-components/macro';
 
+import Button from 'components/Button';
+
 // TODO: Implement me!
-const Stub = ({ className }) => {
+const DonationResults = ({ className }) => {
+  // Fake data
+  const organization = {
+    name: 'Jackson County Memorial Hospital',
+    street_address: '1200 East Pecan St',
+    city: `Altus`,
+    state: `OK`,
+    zip_code: 73521,
+    items_needed: ['n95s', 'surgical masks', `face shields`],
+    instructions: 'Call 580-379-5000 and ask for Mary Jencks.',
+  };
+
+  const itemList = listWithAnd(organization?.items_needed);
+
   return (
     <div className={className}>
-      <pre
+      <h2>{`Here's where to donate`}</h2>
+      <div
         css={css`
-          white-space: pre-wrap;
-          font-size: 1.5rem;
-          padding: 0;
-          margin: 0;
+          margin-top: 1em;
         `}
-      >{`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).`}</pre>
+      >
+        <p>{`We found a donation center near you that needs ${itemList}`}</p>
+
+        <div
+          css={css`
+            margin-top: 1em;
+          `}
+        >
+          <p>{organization?.name}</p>
+          <p>{organization?.street_address}</p>
+          <CityStateZip
+            city={organization?.city}
+            state={organization?.state}
+            zip={organization?.zip_code}
+          />
+        </div>
+        <div
+          css={css`
+            margin-top: 1em;
+            font-size: 0.9em;
+            color: #555; /* TODO: Change? */
+          `}
+        >
+          <p>{organization?.instructions}</p>
+        </div>
+
+        <div
+          css={css`
+            display: flex;
+            margin-top: 2em;
+          `}
+        >
+          <Button primary>{'Schedule pickup'}</Button>
+          <Button
+            secondary
+            css={css`
+              margin-left: 1em;
+            `}
+          >{`I'll do it myself`}</Button>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Stub;
+const CityStateZip = ({ city, state, zip }) => {
+  // TODO: Handle missing info
+  const result = `${city}, ${state} ${zip}`;
+
+  return <p>{result}</p>;
+};
+
+const listWithAnd = (items) =>
+  items.reduce((list, item, i) => {
+    const isLast = i === items.length - 1;
+
+    if (isLast) return list + ', and ' + item;
+    else return list + ', ' + item;
+  });
+
+export default DonationResults;

@@ -1,59 +1,81 @@
-import styled, { css } from 'styled-components/macro';
+import React from 'react';
+import { css } from 'styled-components/macro';
 
-const primary = `
-  background: #63abce;
+const primary = css`
+  background-color: #63abce;
   color: #fff;
+
   border: 2px solid #63abce;
-  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.3);
-  
+
   &:hover {
-    border: 2px solid #63abce;
-  }
-  
-  &:active {
-    border: 2px solid #63abce;
+    border: 2px solid #51a0c8;
+    background-color: #51a0c8;
   }
 
+  &:active {
+    border: 2px solid #3d96c2;
+    background-color: #3d96c2;
+  }
 `;
 
-const secondary = `
+const secondary = css`
   background: #fff;
-  color: #000;
+  color: #707070;
+
   border: 2px solid #63abce;
-  box-shadow: inset 0px 2px 4px 0px rgba(0,0,0,0.3),
-              0px 2px 4px 0px rgba(0,0,0,0.3);
 
   &:hover {
-    border: 2px solid #63abce;
+    background-color: #f2f2f2;
+    border: 2px solid #51a0c8;
   }
-  
+
   &:active {
-    border: 2px solid #63abce;
+    background-color: #e6e6e6;
+    border: 2px solid #3d96c2;
   }
 `;
 
-const Button = styled.button`
-  outline: none;
-  border: none;
-  position: relative;
-  user-select: none;
+const Button = ({
+  className,
+  children,
+  secondary: isSecondary,
+  primary: isPrimary,
+  ...props
+}) => {
+  return (
+    <button
+      className={className}
+      css={css`
+        outline: none;
+        border: none;
+        position: relative;
+        user-select: none;
+        color: #707070;
 
-  height: 6rem;
-  font-size: 2rem;
-  padding: 0 40px;
-  cursor: pointer;
+        font-size: 2rem;
+        padding: 1rem 1.1rem;
+        cursor: pointer;
 
-  ${(props) =>
-    props.primary &&
-    css`
-      ${primary};
-    `};
+        font-family: Raleway, sans-serif;
 
-  ${(props) =>
-    props.secondary &&
-    css`
-      ${secondary};
-    `};
-`;
+        box-shadow: 0px 1px 4px 3px rgba(0, 0, 0, 0.1);
+
+        ${isPrimary ? primary : ''};
+        ${isSecondary ? secondary : ''};
+      `}
+      {...props}
+    >
+      <div
+        css={css`
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        `}
+      >
+        {children}
+      </div>
+    </button>
+  );
+};
 
 export default Button;

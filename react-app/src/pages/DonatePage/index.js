@@ -8,10 +8,12 @@ import Stepper from 'components/Stepper';
 import DonationResults from './DonationResults';
 import ItemSelect from './ItemSelect';
 import UnitSubform from './UnitSubform';
-import ZipCodeInput from './ZipCodeInput';
+import ZipCodeSection from './ZipCodeSection';
 
 const DonatePage = ({ className }) => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(1); // [4, () => {}]; //
+
+  const [zipCode, setZipCode] = useState('');
   const [selectedItems, setSelectedItems] = useState([]);
 
   const addItem = (item) => {
@@ -79,7 +81,11 @@ const DonatePage = ({ className }) => {
             selectedItems={selectedItems}
           />,
           <UnitSubform key="unit-subform" />,
-          <ZipCodeInput key="zip-code-input" />,
+          <ZipCodeSection
+            key="zip-code-input"
+            useZipCode={[zipCode, setZipCode]}
+            onContinue={step === 3 ? () => setStep(4) : null}
+          />,
           <DonationResults key="donation-results" />,
         ]}
       </Stepper>
