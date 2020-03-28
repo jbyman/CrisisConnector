@@ -1,29 +1,30 @@
 import React from 'react';
-import styled from 'styled-components';
-
-import Header from 'components/Header';
+import { css } from 'styled-components/macro';
 
 const Page = ({ className, children }) => {
   return (
-    <div className={className}>
+    <div
+      className={className}
+      css={css`
+        width: 100%;
+
+        margin: 0 auto;
+
+        height: 100%;
+      `}
+    >
       {/* <Header /> */}
-      <PageContents>{children}</PageContents>
+      <div
+        css={css`
+          padding: 2em;
+
+          max-width: 960px;
+        `}
+      >
+        {children}
+      </div>
     </div>
   );
 };
 
-const StyledPage = styled(Page)`
-  width: 100%;
-
-  margin: 0 auto;
-  background-color: #fff
-
-  height: 100%;
-`;
-
-const PageContents = styled.div`
-  color: #8b8b8b;
-  padding: 2em;
-`;
-
-export default StyledPage;
+export default Page;
