@@ -44,12 +44,6 @@ class Organization(db.Model):
         return '<id {}>'.format(self.id)
 
     def serialize(self):
-        try:
-            latitude = float(self.latitue) if not None else '',
-            longitude = float(self.longitude) if not None else '',
-        except Exception as e:
-            latitude = 0.0
-            longitude = 0.0
         return {
             'id': self.id,
             'name': self.name,
@@ -57,6 +51,8 @@ class Organization(db.Model):
             'description': self.description if not None else '',
             'image_url': self.image_url if not None else '',
             'zip_code': self.zip_code if not None else '',
+            'latitude': self.latitude if not None else '',
+            'longitude': self.longitude if not None else '',
             'latitude': latitude,
             'longitude': longitude,
             'instructions': self.instructions if not None else '',
