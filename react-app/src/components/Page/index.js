@@ -9,7 +9,7 @@ const Page = ({ className, children }) => {
         width: 100%;
 
         height: 100%;
-        padding-bottom: 26rem;
+        padding-bottom: 4rem;
       `}
     >
       {/* <Header /> */}
