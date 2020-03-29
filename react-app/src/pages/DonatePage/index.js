@@ -78,9 +78,10 @@ const DonatePage = ({ className }) => {
   );
 };
 
-const ThankYouMessage = () => {
+const ThankYouMessage = ({ className }) => {
   return (
     <div
+      className={className}
       css={`
         display: flex;
         flex-direction: column;
