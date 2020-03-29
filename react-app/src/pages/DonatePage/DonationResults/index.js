@@ -3,8 +3,7 @@ import { css } from 'styled-components/macro';
 
 import Button from 'components/Button';
 
-// TODO: Implement me!
-const DonationResults = ({ className }) => {
+const DonationResults = ({ className, onFinish }) => {
   // Fake data
   const organization = {
     name: 'Jackson County Memorial Hospital',
@@ -31,9 +30,17 @@ const DonationResults = ({ className }) => {
         <div
           css={css`
             margin-top: 1em;
+            font-size: 1.1em;
           `}
         >
-          <p>{organization?.name}</p>
+          <p
+            css={css`
+              color: #63abce;
+              font-size: 1.1em;
+            `}
+          >
+            {organization?.name}
+          </p>
           <p>{organization?.street_address}</p>
           <CityStateZip
             city={organization?.city}
@@ -44,7 +51,6 @@ const DonationResults = ({ className }) => {
         <div
           css={css`
             margin-top: 1em;
-            font-size: 0.9em;
             color: #555; /* TODO: Change? */
           `}
         >
@@ -57,13 +63,17 @@ const DonationResults = ({ className }) => {
             margin-top: 2em;
           `}
         >
-          <Button primary>{'Schedule pickup'}</Button>
+          <Button primary onClick={onFinish}>
+            {'Schedule pickup'}
+          </Button>
           <Button
             secondary
             css={css`
               margin-left: 1em;
             `}
+            onClick={onFinish}
           >{`I'll do it myself`}</Button>
+          {/* https://www.youtube.com/watch?v=EzWNBmjyv7Y */}
         </div>
       </div>
     </div>
