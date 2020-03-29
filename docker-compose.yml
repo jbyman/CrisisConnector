@@ -6,7 +6,7 @@ services:
     volumes:
       - ./services/web/:/usr/src/app/
     ports:
-      - 5003:5000
+      - 5000:5000
     depends_on:
       - db
       - ui
@@ -35,9 +35,9 @@ services:
   ui:
     image: covid-hackathon-ui:latest
     ports:
-      - 5051:80
+      - 80:80
     environment:
-      - "API_URL=http://web:5003"
+      - "API_URL=http://web:5000"
   db:
     image: postgres:latest
     ports:
