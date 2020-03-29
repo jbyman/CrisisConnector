@@ -10,12 +10,18 @@ CREATE TABLE organizations(
 	contact_email varchar(200),
 	zip_code varchar(50),
 	description text,
-	image_url varchar(300)
+	image_url varchar(300),
+	latitude varchar(100),
+	longitude varchar(100),
+	address varchar(300),
+	accepts_opened varchar(300),
+	instructions text,
+	needs varchar(100),
+	city varchar(100),
+	state varchar(100)
 );
 
 CREATE TABLE organization_needs(
 	organization_id int,
-	name varchar(100) NOT NULL,
-	quantity_requested int,
-	quantity_fulfilled int
+	need varchar(100) NOT NULL
 );
