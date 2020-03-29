@@ -1,9 +1,13 @@
 """
 Entrypoint for the webapp
 """
-
-from flask import render_template, request, jsonify, abort
+from flask import Flask, render_template, request, jsonify, abort
 import config
+from flask_sqlalchemy import SQLAlchemy
+from urllib.request import Request, urlopen
+import json
+import re
+import db
 import models
 import matching
 import json
@@ -11,7 +15,6 @@ import utils
 
 APP = config.MAIN_APP
 DB = config.MAIN_DB
-
 
 @APP.route('/')
 def empty_response():
@@ -127,9 +130,50 @@ def match_with_organization():
     return {'best_match': best_match}
 
 
-# @APP.errorhandler(500)
-# def internal_server_error_handler(error):
-# return jsonify(error=str(error)), 500
+@APP.route('/add-organizations')
+def bulk_add_organizations():
+    try:
+        json_data_url = "https://findthemasks.com/data.json"
+        req = Request(json_data_url, headers={'User-Agent': 'Mozilla/5.0'})
+        web_byte = urlopen(req).read()
+        json_data = web_byte.decode('utf-8')
+        data = json.loads(json_data)
+
+        # first two rows of data.json is metadata
+        org_data = data["values"][2:]
+        entries = []
+        for row in org_data:
+            if row[0] != "x":
+                continue
+            org_entry = row[5:11]
+            latitude = row[-3]
+            longtitude = row[-2]
+            zipcode = re.findall('\d+', org_entry[1])
+            if not zipcode or len(zipcode) < 2:
+                zipcode = None
+            else:
+                zipcode = zipcode[1]
+            entry = models.OrganizationDemo(name = org_entry[0],
+                                    final_address = org_entry[1],
+                                    dropoff_address = org_entry[2],
+                                    zip_code = zipcode,
+                                    city = org_entry[3],
+                                    state = org_entry[4],
+                                    dropoff_instructions= org_entry[5],
+                                    lat = latitude,
+                                    lon = longtitude
+                                    )
+            entries.append(entry)
+        DB.getDb().session.add_all(entries)
+        DB.getDb().session.commit()
+        return "Ok!"
+    except Exception as e:
+        abort(500, description=e)
+
+
+@APP.errorhandler(500)
+def internal_server_error_handler(error):
+    return jsonify(error=str(error)), 500
 
 if __name__ == '__main__':
     APP.run(debug=True, host='0.0.0.0')

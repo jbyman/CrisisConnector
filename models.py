@@ -60,3 +60,30 @@ class Organization(db.Model):
             'state': self.state if not None else '',
             'needs': self.needs if not None else ''
         }
+
+class OrganizationDemo(db.Model):
+
+    __tablename__ = 'organizations_demo'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String())
+    final_address = db.Column(db.String())
+    dropoff_address = db.Column(db.String())
+    zip_code = db.Column(db.String(5))
+    city = db.Column(db.String())
+    state = db.Column(db.String())
+    dropoff_instructions = db.Column(db.String())
+    latitude = db.Column(db.Float())
+    longitude = db.Column(db.Float())
+
+    def __init__(self, name, final_address, dropoff_address, zip_code, city, state, dropoff_instructions, lat, lon):
+        self.id = utils.get_next_id()
+        self.name = name
+        self.final_address = final_address
+        self.dropoff_address = dropoff_address
+        self.zip_code = zip_code
+        self.city = city
+        self.state = state
+        self.dropoff_instructions = dropoff_instructions
+        self.latitude = lat if utils.isfloat(lat) else None
+        self.longitude = lon if utils.isfloat(lon) else None

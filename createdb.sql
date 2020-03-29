@@ -25,3 +25,17 @@ CREATE TABLE organization_needs(
 	organization_id int,
 	need varchar(100) NOT NULL
 );
+
+
+CREATE TABLE organizations_demo(
+	id int PRIMARY KEY NOT NULL,
+	name varchar(100) NOT NULL,
+	final_address varchar(500),
+	dropoff_address varchar(500).
+	zip_code char(5),
+	city varchar(50),
+	state char(2),
+	dropoff_instructions varchar(500),
+	latitude float,
+	longitude float
+);
