@@ -10,14 +10,14 @@ CREATE TABLE organizations(
 	contact_email varchar(200),
 	zip_code varchar(50),
 	description text,
-	image_url varchar(300),
+	image_url text,
 	latitude varchar(100),
 	longitude varchar(100),
-	address varchar(300),
-	accepts_opened varchar(300),
+	address text,
+	accepts_opened text,
 	instructions text,
-	needs varchar(100),
-	city varchar(100),
+	needs text,
+	city varchar(500),
 	state varchar(100)
 );
 
