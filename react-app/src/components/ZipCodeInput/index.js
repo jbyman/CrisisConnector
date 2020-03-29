@@ -2,7 +2,7 @@ import React from 'react';
 
 import TextField from 'components/TextField';
 
-const ZipCodeInput = ({ className, name, value, onChange }) => {
+const ZipCodeInput = ({ className, name, value, type, onChange }) => {
   const handleChange = (e) => {
     const value = e?.target?.value ?? '';
 
@@ -15,12 +15,9 @@ const ZipCodeInput = ({ className, name, value, onChange }) => {
     <TextField
       className={className}
       name={name}
-      type="text"
-      css={`
-        margin-left: 1rem;
-        width: 8rem;
-      `}
-      onChange={handleChange}
+      type={type}
+      width={'8rem'}
+      handleChange={handleChange}
       value={value}
     />
   );

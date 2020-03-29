@@ -2,17 +2,25 @@ import React from 'react';
 import { css } from 'styled-components/macro';
 
 import Checkbox from 'components/Checkbox';
+import ContinueButton from 'components/ContinueButton';
 
-const ItemSelect = ({ className, items, selectedItems, handleSelect }) => {
+const ItemSelect = ({
+  className,
+  items,
+  selectedItems,
+  handleSelect,
+  onContinue,
+  step,
+}) => {
   return (
     <div className={className}>
-      <div
+      <label
         css={css`
           font-size: 2rem;
         `}
       >
         {'These items are in high demand. What would you like to donate?'}
-      </div>
+      </label>
       <div
         css={css`
           display: flex;
@@ -44,6 +52,9 @@ const ItemSelect = ({ className, items, selectedItems, handleSelect }) => {
           />
         ))}
       </div>
+      {step === 1 && selectedItems.length > 0 && (
+        <ContinueButton onContinue={onContinue} />
+      )}
     </div>
   );
 };

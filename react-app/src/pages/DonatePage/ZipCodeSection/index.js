@@ -2,41 +2,37 @@ import React from 'react';
 import { css } from 'styled-components/macro';
 
 import ZipCodeInput from 'components/ZipCodeInput';
+import ContinueButton from 'components/ContinueButton';
 
-const ZipCodeSection = ({ className, useZipCode, onContinue }) => {
+const ZipCodeSection = ({ className, useZipCode, step, onContinue }) => {
   const [zipCode, setZipCode] = useZipCode;
 
   return (
-    <div className={className} css={css``}>
+    <div className={className}>
       <h2>{'Where are you?'}</h2>
       <div
         css={css`
-          margin-top: 0.5rem;
+          margin-top: 2rem;
         `}
       >
-        <label htmlFor="zip-code">{'My zip code is'}</label>
+        <label
+          css={css`
+            font-size: 1.8rem;
+            margin-right: 2rem;
+          `}
+          htmlFor="zip-code"
+        >
+          {'My zip code is'}
+        </label>
         <ZipCodeInput
           name="zip-code"
-          css={`
-            margin-left: 1rem;
-          `}
           value={zipCode}
           onChange={(zc) => setZipCode(zc)}
         />
       </div>
-      <span
-        css={css`
-          color: #63abce;
-          font-style: italic;
-
-          visibility: ${zipCode.length === 5 && onContinue
-            ? 'visible'
-            : 'hidden'};
-
-          cursor: pointer;
-        `}
-        onClick={onContinue}
-      >{`> continue`}</span>
+      {step === 3 && zipCode.length === 5 && (
+        <ContinueButton onContinue={onContinue} />
+      )}
     </div>
   );
 };

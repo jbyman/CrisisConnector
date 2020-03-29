@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { css } from 'styled-components/macro';
 
+import { useSelection, useForm } from 'hooks';
+
 import Page from 'components/Page';
 import Hero from 'components/Hero';
 import Stepper from 'components/Stepper';
@@ -11,54 +13,18 @@ import UnitSubform from './UnitSubform';
 import ZipCodeSection from './ZipCodeSection';
 
 const DonatePage = ({ className }) => {
-  const [step, setStep] = useState(1); // [4, () => {}]; //
-
+  const [step, setStep] = useState(1);
   const [zipCode, setZipCode] = useState('');
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItems, { handleSelect }] = useSelection();
+  const [form, { handleChange }] = useForm();
 
-  const addItem = (item) => {
-    const selectedItemCopy = [...selectedItems];
-    selectedItemCopy.push(item);
-    setSelectedItems(selectedItemCopy);
-    return selectedItemCopy;
-  };
-
-  const removeItem = (item) => {
-    let selectedItemsCopy = [...selectedItems];
-    if (selectedItemsCopy.includes(item)) {
-      let idx = selectedItemsCopy.indexOf(item);
-      selectedItemsCopy = [
-        ...selectedItems.slice(0, idx),
-        ...selectedItems.slice(idx + 1),
-      ];
-      setSelectedItems(selectedItemsCopy);
-      return selectedItemsCopy;
-    }
-  };
-
-  const handleSelect = (item) => {
-    if (selectedItems.includes(item)) {
-      removeItem(item);
-    } else {
-      addItem(item);
-    }
+  const updateStep = () => {
+    return step < 4 ? setStep(step + 1) : null;
   };
 
   return (
     <Page className={className}>
       <Hero />
-
-      {/* Just for testing */}
-      {/* TODO: Remove below */}
-      <div>
-        <button
-          disabled={step >= 4}
-          onClick={(e) => (step < 4 ? setStep(step + 1) : null)}
-        >
-          {'step++'}
-        </button>
-      </div>
-      {/* TODO: Remove above */}
 
       <Stepper
         step={step}
@@ -79,12 +45,22 @@ const DonatePage = ({ className }) => {
             ]}
             handleSelect={handleSelect}
             selectedItems={selectedItems}
+            onContinue={updateStep}
+            step={step}
           />,
-          <UnitSubform key="unit-subform" />,
+          <UnitSubform
+            key="unit-subform"
+            selectedItems={selectedItems}
+            onContinue={updateStep}
+            step={step}
+            form={form}
+            handleChange={handleChange}
+          />,
           <ZipCodeSection
             key="zip-code-input"
             useZipCode={[zipCode, setZipCode]}
-            onContinue={step === 3 ? () => setStep(4) : null}
+            onContinue={updateStep}
+            step={step}
           />,
           <DonationResults key="donation-results" />,
         ]}
