@@ -26,7 +26,7 @@ const LandingPage = ({ className }) => {
           css={css`
             display: flex;
             align-items: center;
-            margin-top: 5rem;
+            margin-top: 2rem;
           `}
         >
           <Button
