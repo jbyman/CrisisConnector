@@ -22,8 +22,6 @@ const DonatePage = ({ className }) => {
     return step < 4 ? setStep(step + 1) : null;
   };
 
-  console.log('asdfasdf', form);
-
   return (
     <Page className={className}>
       <Hero />
