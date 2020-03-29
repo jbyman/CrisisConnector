@@ -1,32 +1,24 @@
 import React from 'react';
 import { css } from 'styled-components/macro';
 
+import logo from './cc-logo.svg';
+
 const Hero = ({ className }) => {
   return (
     <div className={className}>
-      <div
-        css={css`
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 15rem;
-          width: 15rem;
-          border-radius: 50%;
-          border: 1px solid #a7a7a7;
-        `}
-      >
-        <div>logo</div>
+      <div>
+        <img src={logo} height="60rem" />
+        <h1
+          css={css`
+            margin-top: 3rem;
+            font-weight: 300;
+            color: #ee442f;
+            font-size: 4rem;
+          `}
+        >
+          {'CrisisConnector'}
+        </h1>
       </div>
-      <h1
-        css={css`
-          margin-top: 3rem;
-          font-weight: 300;
-          color: #ee442f;
-          font-size: 4rem;
-        `}
-      >
-        {'CrisisConnector'}
-      </h1>
       <div
         css={css`
           margin-top: 1rem;
