@@ -17,7 +17,7 @@ const Hero = ({ className }) => {
       >
         <div>logo</div>
       </div>
-      <div
+      <h1
         css={css`
           margin-top: 3rem;
           font-weight: 300;
@@ -26,7 +26,7 @@ const Hero = ({ className }) => {
         `}
       >
         {'CrisisConnector'}
-      </div>
+      </h1>
       <div
         css={css`
           margin-top: 1rem;

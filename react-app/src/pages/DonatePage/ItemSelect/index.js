@@ -9,7 +9,7 @@ const ItemSelect = ({
   items,
   selectedItems,
   handleSelect,
-  updateStep,
+  onContinue,
   step,
 }) => {
   return (
@@ -24,14 +24,27 @@ const ItemSelect = ({
       <div
         css={css`
           display: flex;
-          margin-top: 2rem;
-          & > :not(:last-child) {
-            margin-right: 2rem;
+          flex-wrap: wrap;
+
+          @media screen and (max-width: 620px) {
+            flex-direction: column;
+            align-items: center;
           }
         `}
       >
         {items.map((item) => (
           <Checkbox
+            css={css`
+              margin-top: 2rem;
+
+              :not(:last-child) {
+                margin-right: 3rem;
+
+                @media screen and (max-width: 620px) {
+                  margin-right: 0;
+                }
+              }
+            `}
             key={item}
             item={item}
             handleClick={handleSelect}
@@ -40,7 +53,7 @@ const ItemSelect = ({
         ))}
       </div>
       {step === 1 && selectedItems.length > 0 && (
-        <ContinueButton handleClick={updateStep} />
+        <ContinueButton onContinue={onContinue} />
       )}
     </div>
   );

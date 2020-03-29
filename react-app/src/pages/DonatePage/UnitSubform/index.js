@@ -7,7 +7,7 @@ import ContinueButton from 'components/ContinueButton';
 const UnitSubform = ({
   className,
   selectedItems,
-  updateStep,
+  onContinue,
   step,
   form,
   handleChange,
@@ -48,7 +48,7 @@ const UnitSubform = ({
       >
         {'Estimates are okay. Leave blank if you do not know the quantity.'}
       </div>
-      {step === 2 && <ContinueButton handleClick={updateStep} />}
+      {step === 2 && <ContinueButton onContinue={onContinue} />}
     </form>
   );
 };

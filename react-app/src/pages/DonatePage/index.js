@@ -10,16 +10,19 @@ import Stepper from 'components/Stepper';
 import DonationResults from './DonationResults';
 import ItemSelect from './ItemSelect';
 import UnitSubform from './UnitSubform';
-import ZipCodeInput from './ZipCodeInput';
+import ZipCodeSection from './ZipCodeSection';
 
 const DonatePage = ({ className }) => {
   const [step, setStep] = useState(1);
+  const [zipCode, setZipCode] = useState('');
   const [selectedItems, { handleSelect }] = useSelection();
   const [form, { handleChange }] = useForm();
 
   const updateStep = () => {
     return step < 4 ? setStep(step + 1) : null;
   };
+
+  console.log('asdfasdf', form);
 
   return (
     <Page className={className}>
@@ -44,18 +47,23 @@ const DonatePage = ({ className }) => {
             ]}
             handleSelect={handleSelect}
             selectedItems={selectedItems}
-            updateStep={updateStep}
+            onContinue={updateStep}
             step={step}
           />,
           <UnitSubform
             key="unit-subform"
             selectedItems={selectedItems}
-            updateStep={updateStep}
+            onContinue={updateStep}
             step={step}
             form={form}
             handleChange={handleChange}
           />,
-          <ZipCodeInput key="zip-code-input" />,
+          <ZipCodeSection
+            key="zip-code-input"
+            useZipCode={[zipCode, setZipCode]}
+            onContinue={updateStep}
+            step={step}
+          />,
           <DonationResults key="donation-results" />,
         ]}
       </Stepper>

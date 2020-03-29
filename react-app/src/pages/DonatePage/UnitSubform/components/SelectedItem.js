@@ -17,6 +17,7 @@ const SelectedItem = ({ item, form, handleChange }) => {
             value={form.currencyAmt}
             name="currencyAmt"
             handleChange={handleChange}
+            type="number"
           />
           <div
             css={css`
@@ -34,6 +35,7 @@ const SelectedItem = ({ item, form, handleChange }) => {
             name="currency"
             onChange={handleChange}
             placeholder="Select"
+            type="text"
           >
             {CURRENCIES.map((currency) => (
               <option key={currency}>{currency}</option>
@@ -51,6 +53,7 @@ const SelectedItem = ({ item, form, handleChange }) => {
             value={form.maskAmt}
             name="maskAmt"
             handleChange={handleChange}
+            type="number"
           />
           <Select
             width={'10rem'}
@@ -58,6 +61,7 @@ const SelectedItem = ({ item, form, handleChange }) => {
             name="maskType"
             onChange={handleChange}
             placeholder="Select"
+            type="text"
           >
             {MASK_TYPES.map((mask) => (
               <option key={mask}>{mask}</option>
@@ -76,6 +80,7 @@ const SelectedItem = ({ item, form, handleChange }) => {
             value={form.sanitizerAmt}
             name="sanitizerAmt"
             handleChange={handleChange}
+            type="number"
           />
           <div>{'mL of hand sanitizer.'}</div>
         </>
@@ -90,6 +95,7 @@ const SelectedItem = ({ item, form, handleChange }) => {
             value={form.faceShieldsAmt}
             name="faceShieldsAmt"
             handleChange={handleChange}
+            type="number"
           />
           <div>{'face shields.'}</div>
         </>
@@ -104,8 +110,9 @@ const SelectedItem = ({ item, form, handleChange }) => {
             value={form.wipesAmt}
             name="wipesAmt"
             handleChange={handleChange}
+            type="number"
           />
-          <div>{'pack disinfecting wipes.'}</div>
+          <div>{'pack of disinfecting wipes.'}</div>
         </>
       );
 
@@ -118,6 +125,7 @@ const SelectedItem = ({ item, form, handleChange }) => {
             value={form.other}
             name="other"
             handleChange={handleChange}
+            type="number"
           />
           <div>{'other items.'}</div>
         </>

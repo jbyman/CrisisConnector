@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'styled-components/macro';
 
-const ContinueButton = ({ handleClick }) => {
+const ContinueButton = ({ onContinue }) => {
   return (
     <div
       css={css`
@@ -11,7 +11,7 @@ const ContinueButton = ({ handleClick }) => {
         cursor: pointer;
         font-style: italic;
       `}
-      onClick={handleClick}
+      onClick={onContinue}
     >
       {'> continue'}
     </div>

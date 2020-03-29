@@ -1,10 +1,19 @@
 import React from 'react';
 import { css } from 'styled-components/macro';
 
-const TextField = ({ value, name, handleChange, width, height }) => {
+const TextField = ({
+  className,
+  value,
+  name,
+  handleChange,
+  width,
+  height,
+  type,
+}) => {
   return (
     <input
-      type="number"
+      className={className}
+      type={type}
       min="0"
       css={css`
         padding: 1rem;

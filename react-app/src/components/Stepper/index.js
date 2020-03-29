@@ -29,7 +29,7 @@ const Step = ({ children, stepNumber, currentStep, isLast }) => {
       setTransitionItems([<span key={stepNumber}>{children}</span>]);
       setLineProps((item) => ({
         height: '100%',
-        maxHeight: 'calc(100% - 4rem)',
+        // maxHeight: 'calc(100% - 4rem)',
       }));
     } else {
       setTransitionItems([]);
@@ -41,13 +41,12 @@ const Step = ({ children, stepNumber, currentStep, isLast }) => {
     fadeInTransitionItems,
     (item) => item.key,
     {
-      from: { transform: 'translate3d(0,-50%,0)', opacity: 0, height: 0 },
+      from: { opacity: 0, height: 0 },
       enter: {
-        transform: 'translate3d(0,0%,0)',
         opacity: 1,
         height: 'auto',
       },
-      leave: { transform: 'translate3d(0,-50%,0)', opacity: 0, height: 0 },
+      leave: { opacity: 0, height: 0 },
     }
   );
 
@@ -57,6 +56,10 @@ const Step = ({ children, stepNumber, currentStep, isLast }) => {
         display: flex;
 
         margin-bottom: ${isLast ? '0' : '1rem'};
+
+        &:not(:first-child) {
+          margin-top: 2rem;
+        }
       `}
     >
       <div
@@ -82,7 +85,6 @@ const Step = ({ children, stepNumber, currentStep, isLast }) => {
               display: ${isLast ? 'none' : 'flex'};
 
               width: 0.25rem;
-              min-height: 2rem;
               height: 100%;
 
               margin: 0.5em auto 0;
