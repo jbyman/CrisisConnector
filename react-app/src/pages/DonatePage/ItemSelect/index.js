@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { css } from 'styled-components/macro';
 
 import Checkbox from 'components/Checkbox';

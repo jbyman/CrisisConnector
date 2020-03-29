@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import { css } from 'styled-components/macro';
 
 const Checkbox = ({ className, item, handleClick, selected }) => (
   <div
