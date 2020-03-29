@@ -2,6 +2,10 @@ docker-compose down
 
 # Build UI
 (cd react-app; ./build.sh)
+
+# Build Migration
+(cd migrate; ./build.sh)
+
 # Build All Docker Images
 docker-compose build
 

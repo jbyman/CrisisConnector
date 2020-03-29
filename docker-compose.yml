@@ -6,16 +6,38 @@ services:
     volumes:
       - ./services/web/:/usr/src/app/
     ports:
-      - 5000:5000
+      - 5003:5000
     depends_on:
       - db
       - ui
+    environment:
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+
+  migration-upgrade:
+    image: covid-hackathon-migration:latest
+    depends_on:
+      - db
+    environment:
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+    command: python3 migrate.py db upgrade
+
+  migration-run:
+    image: covid-hackathon-migration:latest
+    depends_on:
+      - db
+    environment:
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+    command: python3 migrate.py db migrate
+
   ui:
     image: covid-hackathon-ui:latest
     ports:
-      - 80:80
+      - 5051:80
     environment:
-      - "API_URL=http://web:5000"
+      - "API_URL=http://web:5003"
   db:
     image: postgres:latest
     ports:
