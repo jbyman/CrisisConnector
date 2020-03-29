@@ -1,4 +1,13 @@
+version: "3.7"
 
+services:
+  web:
+    build: .
+    volumes:
+      - ./services/web/:/usr/src/app/
+    ports:
+      - 5000:5000
+    depends_on:
       - db
       - ui
   ui:
