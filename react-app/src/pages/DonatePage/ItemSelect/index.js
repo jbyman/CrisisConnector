@@ -17,6 +17,10 @@ const ItemSelect = ({
       <label
         css={css`
           font-size: 2rem;
+
+          @media screen and (max-width: 620px) {
+            font-size: 1.5rem;
+          }
         `}
       >
         {'These items are in high demand. What would you like to donate?'}

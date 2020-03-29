@@ -9,7 +9,17 @@ const ZipCodeSection = ({ className, useZipCode, step, onContinue }) => {
 
   return (
     <div className={className}>
-      <h2>{'Where are you?'}</h2>
+      <h2
+        css={css`
+          &&& {
+            @media screen and (max-width: 620px) {
+              font-size: 1.5rem;
+            }
+          }
+        `}
+      >
+        {'Where are you?'}
+      </h2>
       <div
         css={css`
           margin-top: 2rem;
@@ -19,6 +29,10 @@ const ZipCodeSection = ({ className, useZipCode, step, onContinue }) => {
           css={css`
             font-size: 1.8rem;
             margin-right: 2rem;
+
+            @media screen and (max-width: 620px) {
+              font-size: 1.5rem;
+            }
           `}
           htmlFor="zip-code"
         >

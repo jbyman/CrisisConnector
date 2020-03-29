@@ -22,12 +22,20 @@ const TextField = ({
         font-family: Raleway, sans-serif;
         font-size: 1.8rem;
         text-align: center;
+
         width: ${width ? `${width}` : 'auto'};
         height: ${height ? `${height}` : 'auto'};
 
         max-width: 7rem;
 
         border: 1px solid #a7a7a7;
+
+        @media screen and (max-width: 620px) {
+          max-width: 100%;
+          width: auto;
+          padding: 0.5rem 0;
+          font-size: 1.5rem;
+        }
       `}
       name={name}
       value={value}

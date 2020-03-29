@@ -20,10 +20,12 @@ const Select = ({
   return (
     <div
       className={className}
+      data-content=""
       css={css`
         display: flex;
         position: relative;
         min-height: fit-content;
+        display: inline-block;
 
         :not(:first-child) {
           padding-left: 8px;
@@ -39,7 +41,7 @@ const Select = ({
           background-color: inherit;
           border: 1px solid #a7a7a7;
 
-          padding: 1.2rem 1.6rem;
+          padding: 1.2rem 3rem 1.2rem 1.6rem;
 
           appearance: none;
           border-radius: 0;
@@ -71,6 +73,12 @@ const Select = ({
 
             color: #fff;
             background-color: inherit;
+          }
+
+          @media screen and (max-width: 620px) {
+            max-width: 100%;
+            padding: 0.5rem 3rem 0.5rem 0;
+            font-size: 1.5rem;
           }
         `}
         value={value}

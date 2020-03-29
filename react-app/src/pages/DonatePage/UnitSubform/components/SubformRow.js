@@ -9,10 +9,20 @@ const SubformRow = ({ item, form, handleChange }) => {
       css={css`
         font-size: 1.8rem;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
 
         & > :not(:last-child) {
           margin-right: 1rem;
+        }
+
+        @media screen and (max-width: 620px) {
+          font-size: 1.5rem;
+          align-items: center;
+
+          & > :not(:last-child) {
+            margin-right: 0;
+          }
         }
       `}
     >
