@@ -26,7 +26,7 @@ const ItemSelect = ({
           display: flex;
           margin-top: 2rem;
           & > :not(:last-child) {
-            margin-right: 3rem;
+            margin-right: 2rem;
           }
         `}
       >

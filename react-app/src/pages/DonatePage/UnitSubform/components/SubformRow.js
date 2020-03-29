@@ -3,7 +3,7 @@ import { css } from 'styled-components/macro';
 
 import SelectedItem from './SelectedItem';
 
-const SubformRow = ({ item }) => {
+const SubformRow = ({ item, form, handleChange }) => {
   return (
     <div
       css={css`
@@ -16,7 +16,7 @@ const SubformRow = ({ item }) => {
         }
       `}
     >
-      <SelectedItem item={item} />
+      <SelectedItem item={item} form={form} handleChange={handleChange} />
     </div>
   );
 };

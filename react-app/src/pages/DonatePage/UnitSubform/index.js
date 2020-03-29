@@ -4,9 +4,16 @@ import { css } from 'styled-components/macro';
 import SubformRow from './components/SubformRow';
 import ContinueButton from 'components/ContinueButton';
 
-const UnitSubform = ({ className, selectedItems, updateStep, step }) => {
+const UnitSubform = ({
+  className,
+  selectedItems,
+  updateStep,
+  step,
+  form,
+  handleChange,
+}) => {
   return (
-    <div className={className}>
+    <form className={className}>
       <label
         css={css`
           margin-top: 2rem;
@@ -24,7 +31,12 @@ const UnitSubform = ({ className, selectedItems, updateStep, step }) => {
         `}
       >
         {selectedItems.map((item) => (
-          <SubformRow key={item} item={item} />
+          <SubformRow
+            key={item}
+            item={item}
+            form={form}
+            handleChange={handleChange}
+          />
         ))}
       </div>
       <div
@@ -37,7 +49,7 @@ const UnitSubform = ({ className, selectedItems, updateStep, step }) => {
         {'Estimates are okay. Leave blank if you do not know the quantity.'}
       </div>
       {step === 2 && <ContinueButton handleClick={updateStep} />}
-    </div>
+    </form>
   );
 };
 

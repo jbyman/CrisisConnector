@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { css } from 'styled-components/macro';
 
-import { useSelection } from 'hooks';
+import { useSelection, useForm } from 'hooks';
 
 import Page from 'components/Page';
 import Hero from 'components/Hero';
@@ -15,6 +15,7 @@ import ZipCodeInput from './ZipCodeInput';
 const DonatePage = ({ className }) => {
   const [step, setStep] = useState(1);
   const [selectedItems, { handleSelect }] = useSelection();
+  const [form, { handleChange }] = useForm();
 
   const updateStep = () => {
     return step < 4 ? setStep(step + 1) : null;
@@ -51,6 +52,8 @@ const DonatePage = ({ className }) => {
             selectedItems={selectedItems}
             updateStep={updateStep}
             step={step}
+            form={form}
+            handleChange={handleChange}
           />,
           <ZipCodeInput key="zip-code-input" />,
           <DonationResults key="donation-results" />,
