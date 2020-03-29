@@ -18,6 +18,10 @@ const Checkbox = ({ className, item, handleClick, selected }) => (
       box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.4);
 
       border: ${selected ? '3px solid #63abce' : 'none'};
+
+      @media screen and (max-width: 620px) {
+        font-size: 1.5rem;
+      }
     `}
     onClick={() => handleClick(item)}
   >

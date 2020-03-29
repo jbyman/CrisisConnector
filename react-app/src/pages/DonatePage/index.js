@@ -87,6 +87,10 @@ const ThankYouMessage = ({ className }) => {
         flex-direction: column;
 
         margin-top: 4rem;
+
+        @media screen and (max-width: 620px) {
+          margin-top: 2rem;
+        }
       `}
     >
       <div

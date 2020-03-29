@@ -19,7 +19,17 @@ const DonationResults = ({ className, onFinish }) => {
 
   return (
     <div className={className}>
-      <h2>{`Here's where to donate`}</h2>
+      <h2
+        css={css`
+          &&& {
+            @media screen and (max-width: 620px) {
+              font-size: 1.5rem;
+            }
+          }
+        `}
+      >
+        {"Here's where to donate"}
+      </h2>
       <div
         css={css`
           margin-top: 1em;
@@ -30,13 +40,15 @@ const DonationResults = ({ className, onFinish }) => {
         <div
           css={css`
             margin-top: 1em;
-            font-size: 1.1em;
+
+            @media screen and (max-width: 620px) {
+              font-size: 1.5rem;
+            }
           `}
         >
           <p
             css={css`
               color: #63abce;
-              font-size: 1.1em;
             `}
           >
             {organization?.name}
@@ -60,16 +72,31 @@ const DonationResults = ({ className, onFinish }) => {
         <div
           css={css`
             display: flex;
+            flex-wrap: wrap;
             margin-top: 2em;
           `}
         >
-          <Button primary onClick={onFinish}>
+          <Button
+            css={css`
+              @media screen and (max-width: 620px) {
+                width: 100%;
+              }
+            `}
+            primary
+            onClick={onFinish}
+          >
             {'Schedule pickup'}
           </Button>
           <Button
             secondary
             css={css`
               margin-left: 1em;
+
+              @media screen and (max-width: 620px) {
+                margin-top: 2rem;
+                margin-left: 0;
+                width: 100%;
+              }
             `}
             onClick={onFinish}
           >{`I'll do it myself`}</Button>
