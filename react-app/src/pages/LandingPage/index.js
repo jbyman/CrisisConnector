@@ -8,10 +8,6 @@ import Button from 'components/Button';
 import Hero from 'components/Hero';
 
 const LandingPage = ({ className }) => {
-  useEffect(() => {
-    axios.get(`/api/mock-endpoint`).then((res) => console.log(res));
-  }, []);
-
   const history = useHistory();
 
   return (
