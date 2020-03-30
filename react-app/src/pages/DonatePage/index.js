@@ -115,7 +115,7 @@ const ThankYouMessage = ({ className }) => {
         <p>
           {[
             `If you have questions, please contact us at `,
-            <Anchor href="mailto:foo@bar.com">{`foo@bar.com`}</Anchor>,
+            <Anchor href="mailto:crisisconnector@gmail.com">{`crisisconnector@gmail.com`}</Anchor>,
             '.',
           ]}
         </p>
