@@ -21,3 +21,15 @@ Or through Docker with:
 ```
 bash build.sh
 ```
+# Migrations
+To bootstrap your local database, you can run the migration script with:
+
+```
+./migrate.sh
+````
+
+You can then insert some sample data, by running: 
+
+```
+python insert_dummy_data.py
+```
