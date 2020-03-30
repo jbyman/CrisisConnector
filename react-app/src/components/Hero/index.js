@@ -7,7 +7,7 @@ const Hero = ({ className }) => {
   return (
     <div className={className}>
       <div>
-        <img src={logo} height="60rem" />
+        <img alt="logo" src={logo} height="60rem" />
         <h1
           css={css`
             margin-top: 3rem;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import styled, { css } from 'styled-components/macro';
 
 import { useSelection, useForm } from 'hooks';
@@ -13,14 +14,63 @@ import ItemSelect from './ItemSelect';
 import UnitSubform from './UnitSubform';
 import ZipCodeSection from './ZipCodeSection';
 
+const usZips = require('us-zips');
+
 const DonatePage = ({ className }) => {
   const [step, setStep] = useState(1);
   const [zipCode, setZipCode] = useState('');
+
   const [selectedItems, { handleSelect }] = useSelection();
   const [form, { handleChange }] = useForm();
 
-  const updateStep = () => {
+  const [nearestOrganization, setNearestOrganization] = useState({});
+  const [error, setError] = useState('');
+
+  const updateStep = async () => {
+    if (step === 3) {
+      const latAndLng = getLatAndLng();
+      await getOrganization(latAndLng);
+    }
+
     return step < 5 ? setStep(step + 1) : null;
+  };
+
+  const getLatAndLng = () => {
+    return usZips[zipCode];
+  };
+
+  const getOrganization = async (latAndLng) => {
+    const formMapString = {
+      maskAmt: 'N95s',
+      sanitizerAmt: 'Hand sanitizer',
+      faceShieldsAmt: 'Face shields',
+      wipesAmt: 'Disinfecting wipes',
+    };
+
+    const formattedItemsDonating = Object.entries(form)
+      .filter(
+        ([key, val]) =>
+          val >= 1 &&
+          !['currency', 'currencyAmt', 'other', 'maskType'].includes(key)
+      )
+      .map(([key]) => formMapString[key])
+      .join(', ');
+
+    const payload = {
+      latitude: latAndLng?.latitude,
+      longitude: latAndLng?.longitude,
+      donating: formattedItemsDonating,
+    };
+
+    try {
+      const response = await axios.post('/api/match', payload);
+      const data = response?.data?.best_match;
+      setNearestOrganization(data);
+    } catch (e) {
+      setError(
+        "We couldn't find an organization with needs that match your items"
+      );
+    }
   };
 
   return (
@@ -72,6 +122,8 @@ const DonatePage = ({ className }) => {
           <DonationResults
             key="donation-results"
             onFinish={() => setStep(5)}
+            organization={nearestOrganization}
+            error={error}
           />,
         ]}
       </Stepper>
@@ -115,7 +167,10 @@ const ThankYouMessage = ({ className }) => {
         <p>
           {[
             `If you have questions, please contact us at `,
-            <Anchor href="mailto:crisisconnector@gmail.com">{`crisisconnector@gmail.com`}</Anchor>,
+            <Anchor
+              key="crisisconnector@gmail.com"
+              href="mailto:crisisconnector@gmail.com"
+            >{`crisisconnector@gmail.com`}</Anchor>,
             '.',
           ]}
         </p>

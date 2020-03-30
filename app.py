@@ -2,8 +2,10 @@
 Entrypoint for the webapp
 """
 
+
 from flask import render_template, request, jsonify, abort
 from urllib.request import Request, urlopen
+from flask_cors import CORS
 import re
 import config
 import models
@@ -14,6 +16,7 @@ import utils
 APP = config.MAIN_APP
 DB = config.MAIN_DB
 
+CORS(APP)
 
 @APP.route('/')
 def empty_response():
@@ -152,7 +155,7 @@ def bulk_add_organizations():
     except Exception as e:
         abort(500, description=e)
 
-@APP.route('/match')
+@APP.route('/match', methods = ['GET', 'POST'])
 def match_with_organization():
     """
     API endpoint to take some user's data and match them up with
