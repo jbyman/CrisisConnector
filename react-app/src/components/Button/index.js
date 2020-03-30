@@ -60,6 +60,10 @@ const Button = ({
 
         box-shadow: 0px 1px 4px 3px rgba(0, 0, 0, 0.1);
 
+        @media screen and (max-width: 620px) {
+          font-size: 1.5rem;
+        }
+
         ${isPrimary ? primary : ''};
         ${isSecondary ? secondary : ''};
       `}

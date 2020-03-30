@@ -22,10 +22,18 @@ const Hero = ({ className }) => {
       <div
         css={css`
           margin-top: 1rem;
-          font-size: 1.5rem;
+          font-size: 1.6rem;
         `}
       >
-        <div>{'Not sure where to donate or help?'}</div>
+        <div
+          css={css`
+            @media screen and (max-width: 620px) {
+              margin-bottom: 1rem;
+            }
+          `}
+        >
+          {'Not sure where to donate or help?'}
+        </div>
         <div>{"We'll show you how to make the most of your contribution"}</div>
       </div>
     </div>

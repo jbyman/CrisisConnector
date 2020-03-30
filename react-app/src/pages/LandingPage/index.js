@@ -19,6 +19,7 @@ const LandingPage = ({ className }) => {
       <div
         css={css`
           display: grid;
+          grid-row-gap: 2rem;
         `}
       >
         <Hero />
@@ -26,7 +27,10 @@ const LandingPage = ({ className }) => {
           css={css`
             display: flex;
             align-items: center;
-            margin-top: 2rem;
+
+            @media screen and (max-width: 620px) {
+              justify-content: center;
+            }
           `}
         >
           <Button
@@ -34,6 +38,10 @@ const LandingPage = ({ className }) => {
             primary
             css={css`
               font-size: 1.8rem;
+
+              @media screen and (max-width: 620px) {
+                width: 100%;
+              }
             `}
             className={className}
           >

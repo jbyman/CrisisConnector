@@ -20,11 +20,15 @@ def find_best_match(latitude, longitude, donating):
         org_lat = row.latitude
         org_lon = row.longitude
 
-        dist = distance(
-            float(latitude), float(longitude), float(org_lat), float(org_lon))
-        if dist < min_distance:
-            min_distance = dist
-            winner = row
+        try:
+            dist = distance(
+                float(latitude),
+                float(longitude), float(org_lat), float(org_lon))
+            if dist < min_distance:
+                min_distance = dist
+                winner = row
+        except Exception as e:
+            continue
 
     return winner.serialize()
 

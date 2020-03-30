@@ -18,6 +18,10 @@ const UnitSubform = ({
         css={css`
           margin-top: 2rem;
           font-size: 2rem;
+
+          @media screen and (max-width: 620px) {
+            font-size: 1.5rem;
+          }
         `}
       >
         {'Please describe:'}
@@ -44,6 +48,10 @@ const UnitSubform = ({
           font-style: italic;
           font-size: 1.6rem;
           margin-top: 2rem;
+
+          @media screen and (max-width: 620px) {
+            font-size: 1.5rem;
+          }
         `}
       >
         {'Estimates are okay. Leave blank if you do not know the quantity.'}
