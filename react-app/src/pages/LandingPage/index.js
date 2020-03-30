@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { css } from 'styled-components/macro';
 import { useHistory } from 'react-router-dom';
 

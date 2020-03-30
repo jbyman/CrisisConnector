@@ -81,6 +81,12 @@ const DonatePage = ({ className }) => {
         step={step}
         css={css`
           margin-top: 2rem;
+
+          padding: 2rem;
+          box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+          border-radius: 0.5rem;
+
+          margin-top: 2rem;
         `}
       >
         {[
@@ -162,9 +168,9 @@ const ThankYouMessage = ({ className }) => {
           {[
             `If you have questions, please contact us at `,
             <Anchor
-              key="email"
-              href="mailto:foo@bar.com"
-            >{`foo@bar.com`}</Anchor>,
+              key="crisisconnector@gmail.com"
+              href="mailto:crisisconnector@gmail.com"
+            >{`crisisconnector@gmail.com`}</Anchor>,
             '.',
           ]}
         </p>
