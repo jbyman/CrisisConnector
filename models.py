@@ -62,3 +62,24 @@ class Organization(db.Model):
             'state': self.state if not None else '',
             'needs': self.needs if not None else ''
         }
+
+
+class Need(db.Model):
+    __tablename__ = 'organization_needs'
+
+    id = db.Column(db.Integer, primary_key=True)
+    need = db.Column(db.String())
+
+    def __init__(self, org_id, need):
+        self.id = org_id
+        self.need = need
+
+    def __repr__(self):
+        return '<need {}>'.format(self.need)
+
+    def serialize(self):
+        return {
+            'id' : self.id,
+            'name': self.name
+        }
+
