@@ -15,6 +15,7 @@ import utils
 
 APP = config.MAIN_APP
 DB = config.MAIN_DB
+log = config.LOGGER
 
 CORS(APP)
 
@@ -36,13 +37,10 @@ def get_organizations():
     try:
         rows = []
         zipcode = request.args.get('zipcode')
-        print(zipcode)
         if zipcode is not None:
             orgs = models.Organization.query.filter_by(zip_code=zipcode).all()
-            print(orgs)
         else:
             orgs = models.Organization.query.all()
-            print(orgs)
         for org in orgs:
             rows.append(org.serialize())
         return jsonify(rows)
@@ -119,7 +117,7 @@ def add_organization():
         # add any needs associated with it
         #
 
-        process_needs(needs)
+        ret = process_needs(org.id, needs)
 
         return {'added': True}
     except Exception as e:
@@ -193,15 +191,20 @@ def process_needs(org_id, needs):
         if item.strip() in config.POSSIBLE_NEEDS:
             try:
                 org_need = models.Need(
-                    id=org_id,
+                    org_id=org_id,
                     need=item
                 )
 
                 DB.session.add(org_need)
                 DB.session.commit()
             except Exception as e:
-                continue
+                log.error(e)
+                return e
 
 
+def get_org_by_id(org_id):
+    org = models.Need.query.filter_by(org_id=org_id).all()
+    return org
+    
 if __name__ == '__main__':
     APP.run(debug=True, host='0.0.0.0')

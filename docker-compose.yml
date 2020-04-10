@@ -8,18 +8,26 @@ services:
     ports:
       - 5000:5000
     depends_on:
+      - db
       - ui
-    network_mode: "bridge"
-    environment:
-      - "API_URL=http://web:5000"
-      - POSTGRES_USER=postgres
-      - DB_HOST=host.docker.internal 
-      - POSTGRES_DB=help_directory
-      - POSTGRES_HOST_AUTH_METHOD=trust
-
   ui:
     image: covid-hackathon-ui:latest
     ports:
       - 80:80
     environment:
       - "API_URL=http://web:5000"
+  db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=help_directory
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    restart: always
+    networks:
+      - default
+volumes:
+  postgres_data:

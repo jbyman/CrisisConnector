@@ -19,6 +19,6 @@ CREATE TABLE organizations(
 );
 
 CREATE TABLE organization_needs(
-	organization_id int,
+	org_id int,
 	need varchar(100) NOT NULL
 );
