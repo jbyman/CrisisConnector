@@ -78,6 +78,6 @@ class Need(db.Model):
     def serialize(self):
         return {
             'org_id' : self.org_id,
-            'name': self.name
+            'need': self.need
         }
 

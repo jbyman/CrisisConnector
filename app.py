@@ -113,7 +113,7 @@ def add_organization():
         DB.session.commit()
 
         #
-        # Now that we've added an organization, let's 
+        # Now that we've added an organization, let's
         # add any needs associated with it
         #
 
@@ -201,10 +201,5 @@ def process_needs(org_id, needs):
                 log.error(e)
                 return e
 
-
-def get_org_by_id(org_id):
-    org = models.Need.query.filter_by(org_id=org_id).all()
-    return org
-    
 if __name__ == '__main__':
     APP.run(debug=True, host='0.0.0.0')

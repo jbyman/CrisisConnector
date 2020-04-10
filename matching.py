@@ -10,12 +10,11 @@ log = config.MAIN_APP.logger
 
 
 def find_best_match(latitude, longitude, donating):
-
-    rows = models.Organization.query.filter(
-        models.Organization.needs.like(donating))
+    sql = "SELECT * FROM organizations INNER JOIN organization_needs ON organizations.id = organization_needs.org_id WHERE organization_needs.need = :donating"
+    rows = db.session.execute(sql,  {'donating': donating})
 
     min_distance = float('inf')
-    winner = None
+    winner_id = -1
     for row in rows:
         org_lat = row.latitude
         org_lon = row.longitude
@@ -26,11 +25,12 @@ def find_best_match(latitude, longitude, donating):
                 float(longitude), float(org_lat), float(org_lon))
             if dist < min_distance:
                 min_distance = dist
-                winner = row
+                winner_id = row.id
         except Exception as e:
             continue
 
-    return winner.serialize()
+    winner = get_org_by_id(winner_id)
+    return winner[0].serialize()
 
 
 def distance(lat1, lon1, lat2, lon2):
@@ -48,3 +48,8 @@ def distance(lat1, lon1, lat2, lon2):
     d = radius * c
 
     return float(d)
+
+
+def get_org_by_id(org_id):
+    org = models.Organization.query.filter_by(id=org_id).all()
+    return org
