@@ -120,11 +120,6 @@ const CityStateZip = ({ city, state, zip }) => {
 };
 
 const listWithAnd = (items) =>
-  items?.reduce((list, item, i) => {
-    const isLast = i === items.length - 1;
-
-    if (isLast) return list + ', and ' + item;
-    else return list + ', ' + item;
-  }, '');
+  items?.join(', ')?.replace(/, ((?:.(?!, ))+)$/, ' and $1');
 
 export default DonationResults;
