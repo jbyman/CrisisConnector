@@ -1,6 +1,7 @@
 import utils
 import config
 db = config.MAIN_DB
+log = config.LOGGER
 
 
 class Organization(db.Model):
@@ -20,11 +21,10 @@ class Organization(db.Model):
     accepts_opened = db.Column(db.String())
     city = db.Column(db.String())
     state = db.Column(db.String())
-    needs = db.Column(db.String())
 
     def __init__(self, name, contact_email, description, image_url, zip_code,
                  latitude, longitude, instructions, address, accepts_opened,
-                 city, state, needs):
+                 city, state):
         self.id = utils.get_next_id()
         self.name = name
         self.contact_email = contact_email
@@ -38,7 +38,6 @@ class Organization(db.Model):
         self.accepts_opened = accepts_opened
         self.city = city
         self.state = state
-        self.needs = needs
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
@@ -60,5 +59,25 @@ class Organization(db.Model):
             'accepts_opened': self.accepts_opened if not None else '',
             'city': self.city if not None else '',
             'state': self.state if not None else '',
-            'needs': self.needs if not None else ''
         }
+
+
+class Need(db.Model):
+    __tablename__ = 'organization_needs'
+
+    org_id = db.Column(db.Integer, primary_key=True)
+    need = db.Column(db.String())
+
+    def __init__(self, org_id, need):
+        self.org_id = org_id
+        self.need = need
+
+    def __repr__(self):
+        return '<need {}>'.format(self.need)
+
+    def serialize(self):
+        return {
+            'org_id' : self.org_id,
+            'need': self.need
+        }
+

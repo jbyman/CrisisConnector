@@ -36,11 +36,11 @@ with open('data_formatted.json') as f:
         }
 
         try:
-            requests.get(
+            r = requests.get(
                 'http://localhost:5000/add-organization',
                 json=params,
-                headers=headers)
-            print("Successfully sent to" + d['name'])
+                headers=headers).json()
+            print("Successfully sent to " + d['name'])
         except Exception as e:
             print(e)
             continue

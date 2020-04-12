@@ -1,5 +1,3 @@
--- Run when the image is started up
-
 -- CREATE DATABASE help_directory;
 
 -- \connect help_directory;
@@ -16,12 +14,11 @@ CREATE TABLE organizations(
 	address text,
 	accepts_opened text,
 	instructions text,
-	needs text,
 	city varchar(500),
 	state varchar(100)
 );
 
 CREATE TABLE organization_needs(
-	organization_id int,
+	org_id int,
 	need varchar(100) NOT NULL
 );

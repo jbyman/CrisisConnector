@@ -6,6 +6,13 @@ INSERT INTO organizations VALUES(
 	'94107',
 	'We at St Judes are in need of gloves, masks, and donations to help feed our staff.',
 	'https://mma.prnewswire.com/media/613525/St_Jude_Childrens_Research_Hospital_Logo.jpg'
+	'37.781101',
+	'-122.399529',
+	'788 Harrison Street',
+	'Yes',
+	'Leave at the door'
+	'San Francisco',
+	'CA'
 );
 
 INSERT INTO organization_needs VALUES(

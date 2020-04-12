@@ -15,6 +15,7 @@ import utils
 
 APP = config.MAIN_APP
 DB = config.MAIN_DB
+log = config.LOGGER
 
 CORS(APP)
 
@@ -105,12 +106,18 @@ def add_organization():
             instructions=instructions,
             address=address,
             accepts_opened=accepts_opened,
-            needs=needs,
             city=city,
             state=state)
 
         DB.session.add(org)
         DB.session.commit()
+
+        #
+        # Now that we've added an organization, let's
+        # add any needs associated with it
+        #
+
+        ret = process_needs(org.id, needs)
 
         return {'added': True}
     except Exception as e:
@@ -140,7 +147,6 @@ def bulk_add_organizations():
                                     state = row[9],
                                     zip_code = '' if len(re_zipcode) < 2 and len(re_zipcode[1]) != 5 else re_zipcode[1],
                                     instructions = row[10],
-                                    needs = row[11],
                                     accepts_opened = row[12],
                                     latitude = row[13],
                                     longitude = row[14],
@@ -174,9 +180,26 @@ def match_with_organization():
     return {'best_match': best_match}
 
 
-# @APP.errorhandler(500)
-# def internal_server_error_handler(error):
-# return jsonify(error=str(error)), 500
+@APP.errorhandler(500)
+def internal_server_error_handler(error):
+    return jsonify(error=str(error)), 500
+
+
+def process_needs(org_id, needs):
+    items_needed = needs.split(',')
+    for item in items_needed:
+        if item.strip() in config.POSSIBLE_NEEDS:
+            try:
+                org_need = models.Need(
+                    org_id=org_id,
+                    need=item
+                )
+
+                DB.session.add(org_need)
+                DB.session.commit()
+            except Exception as e:
+                log.error(e)
+                return e
 
 if __name__ == '__main__':
     APP.run(debug=True, host='0.0.0.0')
