@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { css } from 'styled-components/macro';
 
+import { useLocation } from 'react-router-dom';
+
 const Page = ({ className, children }) => {
+  const location = useLocation();
+
+  useEffect(() => {
+    // TODO: Make tag an environment variable (?)
+    window?.ga?.('gtag_UA_162388545_1.send', 'pageview', location.pathname); // eslint-disable-line no-unused-expressions
+  }, [location, window?.ga]);
+
   return (
     <div
       className={className}
