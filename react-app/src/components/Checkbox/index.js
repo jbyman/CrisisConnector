@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'styled-components/macro';
 
-const Checkbox = ({ className, item, handleClick, selected }) => (
+const Checkbox = ({ className, item, handleClick, selected, handleClear }) => (
   <div
     className={className}
     css={css`
@@ -23,7 +23,10 @@ const Checkbox = ({ className, item, handleClick, selected }) => (
         font-size: 1.5rem;
       }
     `}
-    onClick={() => handleClick(item)}
+    onClick={() => {
+      if (selected) handleClear(item);
+      handleClick(item);
+    }}
   >
     {item}
   </div>

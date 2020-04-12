@@ -13,6 +13,7 @@ import DonationResults from './DonationResults';
 import ItemSelect from './ItemSelect';
 import UnitSubform from './UnitSubform';
 import ZipCodeSection from './ZipCodeSection';
+import { MASK_TYPES } from '../../helpers/maskTypes';
 
 const usZips = require('us-zips');
 
@@ -21,44 +22,40 @@ const DonatePage = ({ className }) => {
   const [zipCode, setZipCode] = useState('');
 
   const [selectedItems, { handleSelect }] = useSelection();
-  const [form, { handleChange }] = useForm();
+  const [form, { handleChange, clearSelectedFormField }] = useForm();
 
   const [nearestOrganization, setNearestOrganization] = useState({});
   const [error, setError] = useState('');
 
   const updateStep = async () => {
-    if (step === 3) {
-      const latAndLng = getLatAndLng();
-      await getOrganization(latAndLng);
-    }
-
+    if (step === 3) await getOrganization();
     return step < 5 ? setStep(step + 1) : null;
   };
 
-  const getLatAndLng = () => {
-    return usZips[zipCode];
-  };
-
-  const getOrganization = async (latAndLng) => {
-    const formMapString = {
-      maskAmt: 'N95s',
-      sanitizerAmt: 'Hand sanitizer',
-      faceShieldsAmt: 'Face shields',
-      wipesAmt: 'Disinfecting wipes',
-    };
-
+  const getOrganization = async () => {
     const formattedItemsDonating = Object.entries(form)
-      .filter(
-        ([key, val]) =>
+      ?.reduce((acc, [key, val]) => {
+        // handle mask type
+        if (MASK_TYPES?.includes(val)) {
+          acc.push(`${val}s`);
+        }
+
+        // handle disinfecting wipes, hand sanitizer, and face shields
+        if (
           val >= 1 &&
-          !['currency', 'currencyAmt', 'other', 'maskType'].includes(key)
-      )
-      .map(([key]) => formMapString[key])
-      .join(', ');
+          ['Disinfecting wipes', 'Hand sanitizer', 'Face shields']?.includes(
+            key
+          )
+        ) {
+          acc.push(key);
+        }
+        return acc;
+      }, [])
+      ?.join(', ');
 
     const payload = {
-      latitude: latAndLng?.latitude,
-      longitude: latAndLng?.longitude,
+      latitude: usZips[zipCode]?.latitude,
+      longitude: usZips[zipCode]?.longitude,
       donating: formattedItemsDonating,
     };
 
@@ -66,6 +63,7 @@ const DonatePage = ({ className }) => {
       const response = await axios.post('/api/match', payload);
       const data = response?.data?.best_match;
       setNearestOrganization(data);
+      setError('');
     } catch (e) {
       setError(
         "We couldn't find an organization with needs that match your items"
@@ -101,6 +99,7 @@ const DonatePage = ({ className }) => {
               'Other',
             ]}
             handleSelect={handleSelect}
+            handleClear={clearSelectedFormField}
             selectedItems={selectedItems}
             onContinue={updateStep}
             step={step}
@@ -118,6 +117,7 @@ const DonatePage = ({ className }) => {
             useZipCode={[zipCode, setZipCode]}
             onContinue={updateStep}
             step={step}
+            onSubmit={getOrganization}
           />,
           <DonationResults
             key="donation-results"

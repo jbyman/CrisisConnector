@@ -3,8 +3,8 @@ import { css } from 'styled-components/macro';
 
 import TextField from 'components/TextField';
 import Select from 'components/Select';
+import { MASK_TYPES } from '../../../../helpers/maskTypes';
 
-const MASK_TYPES = ['N95', 'P95', 'R95', 'Surgical masks', 'Homemade masks'];
 const CURRENCIES = ['USD', 'GBP', 'IDR'];
 
 const SelectedItem = ({ item, form, handleChange }) => {
@@ -77,8 +77,8 @@ const SelectedItem = ({ item, form, handleChange }) => {
           <label>{'I can donate'}</label>
           <TextField
             width={'7rem'}
-            value={form.sanitizerAmt}
-            name="sanitizerAmt"
+            value={form['Hand sanitizer']}
+            name="Hand sanitizer"
             handleChange={handleChange}
             type="number"
           />
@@ -92,8 +92,8 @@ const SelectedItem = ({ item, form, handleChange }) => {
           <label>{'I can donate'}</label>
           <TextField
             width={'7rem'}
-            value={form.faceShieldsAmt}
-            name="faceShieldsAmt"
+            value={form['Face shields']}
+            name="Face shields"
             handleChange={handleChange}
             type="number"
           />
@@ -107,8 +107,8 @@ const SelectedItem = ({ item, form, handleChange }) => {
           <label>{'I can donate'}</label>
           <TextField
             width={'7rem'}
-            value={form.wipesAmt}
-            name="wipesAmt"
+            value={form['Disinfecting wipes']}
+            name="Disinfecting wipes"
             handleChange={handleChange}
             type="number"
           />

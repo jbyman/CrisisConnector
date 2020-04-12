@@ -11,6 +11,7 @@ const ItemSelect = ({
   handleSelect,
   onContinue,
   step,
+  handleClear,
 }) => {
   return (
     <div className={className}>
@@ -53,6 +54,7 @@ const ItemSelect = ({
             item={item}
             handleClick={handleSelect}
             selected={selectedItems.includes(item)}
+            handleClear={handleClear}
           />
         ))}
       </div>
