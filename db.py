@@ -2,10 +2,16 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 class Database:
-    db_url = 'postgresql://postgres@db:5432/help_directory'  # This should eventually go in an ENV variable
+    db_url = 'postgresql://postgres@db:5432/help_directory'
     db = None
 
     def __init__(self, app):
+        """
+        Constructor that takes in the Flask App as a
+        parameter. Initializes the SQLAlchemy connection
+        to the PostgreSQL database
+        """
+
         app.config['SQLALCHEMY_DATABASE_URI'] = self.db_url
         Database.db = SQLAlchemy(app)
 
@@ -26,7 +32,8 @@ class Database:
     @staticmethod
     def query(q):
         """
-        Returns the Postgres DB connection URL
+        Executes a raw SQL query on the PostgreSQL database.
+        With the Flask ORM, this should be seldom needed
         """
 
         rows = Database.db.session.execute(q)
