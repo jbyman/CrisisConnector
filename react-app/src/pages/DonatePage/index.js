@@ -61,6 +61,18 @@ const DonatePage = ({ className }) => {
 
     try {
       const response = await axios.post('/api/match', payload);
+
+      /* eslint-disable no-unused-expressions */
+      window?.ga?.(
+        'gtag_UA_162388545_1.send',
+        'event',
+        'api',
+        'match',
+        'organization',
+        response?.data?.best_match?.id
+      );
+      /* eslint-enable no-unused-expressions */
+
       const data = response?.data?.best_match;
       setNearestOrganization(data);
       setError('');
