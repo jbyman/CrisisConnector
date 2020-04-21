@@ -181,7 +181,7 @@ def internal_server_error_handler(error) -> Dict[str, str]:
     return jsonify(error=str(error)), 500
 
 
-def process_needs(org_id: int, needs: str) -> Tuple[bool, str]:
+def process_needs(org_id: int, needs: str) -> None:
     """
     Given a list of needs for an organization,
     insert them into the EAV organization_needs table.
@@ -200,11 +200,8 @@ def process_needs(org_id: int, needs: str) -> Tuple[bool, str]:
 
                 DB.session.add(org_need)
                 DB.session.commit()
-
-                return (True, "")
             except Exception as e:
                 log.error(e)
-                return (False, e)
 
 if __name__ == '__main__':
     APP.run(debug=True, host='0.0.0.0')

@@ -9,9 +9,8 @@ import logging
 
 MAIN_APP = Flask(__name__)
 LOGGER = MAIN_APP.logger
-LOGGER.setLevel(logging.ERROR)
+LOGGER.setLevel(logging.INFO)
 MAIN_DB = db.Database(MAIN_APP).getDb()
-MAIN_LOGGER = logging.getLogger('werkzeug')
 
 POSSIBLE_NEEDS = [
     'N95',

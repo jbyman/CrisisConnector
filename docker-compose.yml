@@ -12,8 +12,6 @@ services:
       - ui
   ui:
     image: covid-hackathon-ui:latest
-    ports:
-      - 80:80
     expose:
       - "80"
     environment:
