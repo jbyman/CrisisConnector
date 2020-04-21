@@ -49,6 +49,12 @@ const DonatePage = ({ className }) => {
         ) {
           acc.push(key);
         }
+
+        // handle money
+        if (['currency']?.includes(key)) {
+          acc.push('money');
+        }
+
         return acc;
       }, [])
       ?.join(', ');

@@ -1,8 +1,15 @@
+"""
+A bunch of variables that are intended
+to be shared across the Flask codebase
+"""
+
 from flask import Flask
 import db
+import logging
 
 MAIN_APP = Flask(__name__)
 LOGGER = MAIN_APP.logger
+LOGGER.setLevel(logging.INFO)
 MAIN_DB = db.Database(MAIN_APP).getDb()
 
 POSSIBLE_NEEDS = [
@@ -18,5 +25,6 @@ POSSIBLE_NEEDS = [
     'Thermometer',
     'Disinfectant Wipes',
     'Disinfectant Wipe',
-    'Disposable Booties'
+    'Disposable Booties',
+    'Currency'
 ]

@@ -3,15 +3,15 @@ Entrypoint for the webapp
 """
 
 
-from flask import render_template, request, jsonify, abort
-from urllib.request import Request, urlopen
-from flask_cors import CORS
 import re
+import json
+from flask import request, jsonify, abort
 import config
 import models
 import matching
-import json
-import utils
+from urllib.request import Request, urlopen
+from typing import Tuple, Dict
+from flask_cors import CORS
 
 APP = config.MAIN_APP
 DB = config.MAIN_DB
@@ -20,7 +20,7 @@ log = config.LOGGER
 CORS(APP)
 
 @APP.route('/')
-def empty_response():
+def empty_response() -> Tuple[str, int]:
     """
     Invalid endpoint
     """
@@ -29,10 +29,11 @@ def empty_response():
 
 
 @APP.route('/organizations')
-def get_organizations():
+def get_organizations() -> Dict[str, str]:
     """
     API endpoint to get all organizations
     """
+    log.info('List organizations')
 
     try:
         rows = []
@@ -48,36 +49,12 @@ def get_organizations():
         abort(500, description=e)
 
 
-@APP.route('/login')
-def login():
-    """
-    API endpoint to log in a user
-    """
-    return "Nice! You're logged in"
-
-
-@APP.route('/signup')
-def signup():
-    """
-    API endpoint to sign up a new user
-    """
-    return "Nice! You just signed up"
-
-
-@APP.route('/donate')
-def donate():
-    """
-    API endpoint to sign up a new user
-    """
-
-    return "Nice! You donated stuff"
-
-
 @APP.route('/add-organization')
-def add_organization():
+def add_organization() -> Dict[str, bool]:
     """
     API endpoint to sign up a new organization
     """
+    log.info('Add organization')
 
     r = request.get_json()
     name = r['name']
@@ -107,7 +84,8 @@ def add_organization():
             address=address,
             accepts_opened=accepts_opened,
             city=city,
-            state=state)
+            state=state
+        )
 
         DB.session.add(org)
         DB.session.commit()
@@ -117,14 +95,21 @@ def add_organization():
         # add any needs associated with it
         #
 
-        ret = process_needs(org.id, needs)
+        process_needs(org.id, needs)
 
         return {'added': True}
     except Exception as e:
         abort(500, description=e)
 
+
 @APP.route('/add-organizations')
-def bulk_add_organizations():
+def bulk_add_organizations() -> Dict[str, bool]:
+    """
+    API endpoint to fetch the list of organizations from FindTheMasks
+    and add them to our Organizations store
+    """
+    log.info('Add organizations')
+
     try:
         json_data_url = "https://findthemasks.com/data.json"
         req = Request(json_data_url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -142,30 +127,34 @@ def bulk_add_organizations():
             re_zipcode = re.findall('\d+', row[6])
             re_email = re.findall(r'[\w\.-]+@[\w\.-]+', row[10])
             entry = models.Organization(name = row[5],
-                                    address = row[7],
-                                    city = row[8],
-                                    state = row[9],
-                                    zip_code = '' if len(re_zipcode) < 2 and len(re_zipcode[1]) != 5 else re_zipcode[1],
-                                    instructions = row[10],
-                                    accepts_opened = row[12],
-                                    latitude = row[13],
-                                    longitude = row[14],
-                                    contact_email = '' if re_email == [] else re_email[0],
-                                    description = '',
-                                    image_url = '',
+                                        address=row[7],
+                                        city=row[8],
+                                        state=row[9],
+                                        zip_code='' if len(re_zipcode) < 2 and len(re_zipcode[1]) != 5 else re_zipcode[1],
+                                        instructions=row[10],
+                                        accepts_opened=row[12],
+                                        latitude=row[13],
+                                        longitude=row[14],
+                                        contact_email='' if re_email == [] else re_email[0],
+                                        description='',
+                                        image_url='',
                                     )
             entries.append(entry)
+
         DB.session.add_all(entries)
         DB.session.commit()
-        return "Ok!"
+
+        return {'ok': True}
     except Exception as e:
         abort(500, description=e)
 
+
 @APP.route('/match', methods = ['GET', 'POST'])
-def match_with_organization():
+def match_with_organization() -> Dict[str, Dict]:
     """
     API endpoint to take some user's data and match them up with
     """
+    log.info('Match')
 
     r = request.get_json()
     latitude = r['latitude']
@@ -176,16 +165,30 @@ def match_with_organization():
     # Given the user's information, find the best donation center for them
     #
 
-    best_match = matching.find_best_match(latitude, longitude, donating)
-    return {'best_match': best_match}
+    donating = donating.split(',')
+    for donation in donating:
+        best_match = matching.find_best_match(latitude, longitude, donation)
+
+        if best_match != None:
+            return {'best_match': best_match}
+        elif best_match == None and donation.lower() == 'money':
+            closest_match = matching.find_closest(latitude, longitude)
+            return {'best_match': closest_match}
 
 
 @APP.errorhandler(500)
-def internal_server_error_handler(error):
+def internal_server_error_handler(error) -> Dict[str, str]:
     return jsonify(error=str(error)), 500
 
 
-def process_needs(org_id, needs):
+def process_needs(org_id: int, needs: str) -> None:
+    """
+    Given a list of needs for an organization,
+    insert them into the EAV organization_needs table.
+    Returns whether the operation succeeded and, if not, the
+    error message
+    """
+
     items_needed = needs.split(',')
     for item in items_needed:
         if item.strip() in config.POSSIBLE_NEEDS:
@@ -199,7 +202,6 @@ def process_needs(org_id, needs):
                 DB.session.commit()
             except Exception as e:
                 log.error(e)
-                return e
 
 if __name__ == '__main__':
     APP.run(debug=True, host='0.0.0.0')
