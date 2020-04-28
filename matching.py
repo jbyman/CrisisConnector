@@ -78,3 +78,8 @@ def distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
 def get_org_by_id(org_id: float) -> models.Organization:
     org = models.Organization.query.filter_by(id=org_id).all()
     return org
+
+
+def get_org_by_name(org_name: str) -> models.Organization:
+    org = models.Organization.query.filter_by(name=org_name).all()
+    return org

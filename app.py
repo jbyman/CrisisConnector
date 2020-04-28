@@ -176,6 +176,68 @@ def match_with_organization() -> Dict[str, Dict]:
             return {'best_match': closest_match}
 
 
+@APP.route('/update-orgs', methods = ['GET', 'POST'])
+def update_orgs_from_cron() -> Dict[str, bool]:
+    """
+    API hit from cron job that updates the list of organizations
+    """
+
+    log.info('Updating organizations...')
+
+    try:
+        json_data_url = "https://findthemasks.com/data.json"
+        req = Request(json_data_url, headers={'User-Agent': 'Mozilla/5.0'})
+        web_byte = urlopen(req).read()
+        json_data = web_byte.decode('utf-8')
+        data = json.loads(json_data)
+
+        #
+        # First two rows of data.json is metadata
+        #
+
+        org_data = data["values"][2:]
+        for row in org_data:
+            if row[0] != "x":
+                continue
+
+            #
+            # Some numbers like street address might appear more than once
+            #
+
+            re_zipcode = re.findall('\d+', row[6])
+            re_email = re.findall(r'[\w\.-]+@[\w\.-]+', row[10])
+
+            #
+            # If this is a new organization we don't currently 
+            # have registered
+            #
+
+            if matching.get_org_by_name(row[5]) == None:
+                print('New organization:' + row[5])
+                entry = models.Organization(name = row[5],
+                                            address=row[7],
+                                            city=row[8],
+                                            state=row[9],
+                                            zip_code='' if len(re_zipcode) < 2 and len(re_zipcode[1]) != 5 else re_zipcode[1],
+                                            instructions=row[10],
+                                            accepts_opened=row[12],
+                                            latitude=row[13],
+                                            longitude=row[14],
+                                            contact_email='' if re_email == [] else re_email[0],
+                                            description='',
+                                            image_url='',
+                )
+                config.DB.session.add(entry)
+                config.DB.session.commit()
+            else:
+                print('Noooope')
+
+        return {'Success': True}
+    except Exception as e:
+        abort(500, description=e)
+        return {'Success': False}
+
+
 @APP.errorhandler(500)
 def internal_server_error_handler(error) -> Dict[str, str]:
     return jsonify(error=str(error)), 500
