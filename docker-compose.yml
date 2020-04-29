@@ -10,6 +10,8 @@ services:
     depends_on:
       - db
       - ui
+    environment:
+      - PYTHONUNBUFFERED=1
   ui:
     image: covid-hackathon-ui:latest
     expose:
